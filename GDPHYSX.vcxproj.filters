@@ -75,6 +75,9 @@
     <ClInclude Include="Project\Forces\DragForceGenerator.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Project\Managers\Input.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include=".gitignore" />
@@ -137,6 +140,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Project\Forces\DragForceGenerator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Managers\Input.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

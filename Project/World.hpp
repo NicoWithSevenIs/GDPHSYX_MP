@@ -23,12 +23,9 @@ class World {
 		void Update(float deltaTime);
 		void Draw();
 
-		void printResults();
-		bool allInCenter();
-
 	private:
 		void UpdateParticleList();
 		std::string getRankingText(int rank);
-		void printRankData(RenderParticle* p, int rank);
+
 
 };

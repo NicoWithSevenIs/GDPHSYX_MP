@@ -140,6 +140,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="config.hpp" />
+    <ClInclude Include="Project\Managers\Input.hpp" />
     <ClInclude Include="Project\Forces\DragForceGenerator.hpp" />
     <ClInclude Include="Project\Forces\GravityForceGenerator.hpp" />
     <ClInclude Include="Project\Forces\ForceRegistry.hpp" />
@@ -166,6 +167,7 @@
     <None Include="Project\Model\Shaders\Temp.vert" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Project\Managers\Input.cpp" />
     <ClCompile Include="Project\Forces\DragForceGenerator.cpp" />
     <ClCompile Include="Project\Forces\GravityForceGenerator.cpp" />
     <ClCompile Include="Project\Forces\ForceRegistry.cpp" />

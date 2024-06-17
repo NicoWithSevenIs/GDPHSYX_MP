@@ -20,8 +20,11 @@
 #include "Project/Managers/ShaderManager.hpp"
 #include "Project/Components/ShaderNames.hpp"
 #include "Project/Managers/CameraManager.hpp"
+#include "Project/Managers/Input.hpp"
 #include "Project/Particle.hpp"
 #include "Project/Model.h"
+
+
 
 #include "Project/World.hpp"
 
@@ -65,14 +68,14 @@ int main(void)
     glfwMakeContextCurrent(window);
     gladLoadGL();
 
+    glfwSetKeyCallback(window, Input::keyCallback);
+
     ShaderManager::getInstance()->buildShaders();
 
     //glViewport(0, 0, window_width, window_height);
 
     Shader* shader = (*ShaderManager::getInstance())[ShaderNames::MODEL_SHADER];
-    CameraManager::getCamera()->assignShader(shader);
-    OrthographicCamera* ortho = (OrthographicCamera*) CameraManager::getCamera();
-    ortho->setOrthoData(0, SCREEN_WIDTH, 0, SCREEN_HEIGHT);
+    CameraManager::initializeCameras(shader);
 
     World world = World();
 
@@ -86,42 +89,11 @@ int main(void)
     Particle* p = new Particle();
     p->setPosition(Vector3(300,300,173));
 
-    //oh lord i feel like wet spaghetti rn so i guess ill be doing this instead
-    //Shaboomboom(p, 90, 8);
-   
     p->mass = 3;
     p->AddForce(Vector3(-6000,0,0));
 
 
-    /* RED (NW) */
-    Model* m2 = new Model(*m);
-    m2->setColor(Vector3(1, 0, 0));
-
-    Particle* p2 = new Particle();
-    p2->setPosition(Vector3(-300, 300, 201));
-    Shaboomboom(p2, 80, 14.5f);
-
-    /* BLUE (SE) */
-    Model* m3 = new Model(*m);
-    m3->setColor(Vector3(0, 0, 1));
-
-    Particle* p3 = new Particle();
-    p3->setPosition(Vector3(300, -300, -300));
-    Shaboomboom(p3, 130, 1);
-
-
-    /* YELLOW (SW) */
-    Model* m4 = new Model(*m);
-    m4->setColor(Vector3(1, 1, 0));
-
-    Particle* p4 = new Particle();
-    p4->setPosition(Vector3(-300, -300, -150));
-    Shaboomboom(p4, 110, 3);
-
     world.AddParticle(new RenderParticle("Green", m, p));
-    world.AddParticle(new RenderParticle("Red", m2, p2));
-    world.AddParticle(new RenderParticle("Blue", m3, p3));
-    world.AddParticle(new RenderParticle("Yellow", m4, p4));
 
     //might try to make a time singleton to handle this
 
@@ -152,21 +124,20 @@ int main(void)
             world.Update(dT);
         }
 
-        CameraManager::getCamera()->Draw();
+        CameraManager::getMain()->Draw();
         world.Draw();
+
+        if (Input::isKey(GLFW_KEY_SPACE)) {
+            std::cout << "Yo" << std::endl;
+        }
 
         glfwSwapBuffers(window);
         glfwPollEvents();
 
-        if(world.allInCenter())
-            break;
     }
 
-    world.printResults();
     glfwTerminate();
 
-    std::cout << "Press [ENTER] to continue..." << std::endl;
-    getchar();
 
     return 0;
 }

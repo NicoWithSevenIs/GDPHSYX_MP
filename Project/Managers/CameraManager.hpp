@@ -2,21 +2,23 @@
 
 
 #include "../Camera/OrthographicCamera.hpp"
-
+#include "../../config.hpp"
+#include <vector>
 namespace managers {
 
 	class CameraManager {
 		
 		private:
 			OrthographicCamera ortho;
+			std::vector<Camera*> cameras;
 
 		private:
 			Camera* currentCamera;
 
 		public:
-			static Camera* getCamera();
+			static Camera* getMain();
 			//static void switchCamera();
-
+			static void initializeCameras(Shader* shader);
 
 		#pragma region Singleton
 
