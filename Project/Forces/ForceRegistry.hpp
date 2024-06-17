@@ -4,22 +4,20 @@
 #include <list>
 #include <functional>
 
-class ForceRegistry
-{
-		public:
-			void Add(Particle* particle, ForceGenerator* generator);
-			void Remove(Particle* particle, ForceGenerator* generator);
-			void Clear();
+class ForceRegistry {
+public:
+	void Add(Particle* particle, ForceGenerator* generator);
+	void Remove(Particle* particle, ForceGenerator* generator);
+	void Clear();
 
-			void UpdateForces(float deltaTime);
+	void UpdateForces(float time);
 
-		protected:
-			struct RegisteredForceOffender {
-				Particle* particle;
-				ForceGenerator* forceGenerator;
-			};
+protected:
+	struct ParticleForceRegistry {
+		Particle* particle;
+		ForceGenerator* generator;
+	};
 
-			std::list<RegisteredForceOffender> Registry;
-	
+	std::list<ParticleForceRegistry> Registry;
 };
 

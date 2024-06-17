@@ -2,10 +2,10 @@
 
 void ForceRegistry::Add(Particle* particle, ForceGenerator* generator)
 {
-	RegisteredForceOffender toAdd;
+	ParticleForceRegistry toAdd;
 
 	toAdd.particle = particle;
-	toAdd.forceGenerator = generator;
+	toAdd.generator = generator;
 
 
 	Registry.push_back(toAdd);
@@ -14,8 +14,8 @@ void ForceRegistry::Add(Particle* particle, ForceGenerator* generator)
 
 void ForceRegistry::Remove(Particle* particle, ForceGenerator* generator)
 {
-	auto RemoveChecker = [particle, generator](RegisteredForceOffender* forceGenerator) {
-		return forceGenerator->particle == particle && forceGenerator->forceGenerator == generator;
+	auto RemoveChecker = [particle, generator](ParticleForceRegistry forceGenerator) {
+		return forceGenerator.particle == particle && forceGenerator.generator == generator;
 	};
 
 	Registry.remove_if(RemoveChecker);
@@ -30,7 +30,7 @@ void ForceRegistry::UpdateForces(float deltaTime)
 {
 
 	for (auto i : this->Registry) {
-		i.forceGenerator->UpdateForce(i.particle, deltaTime);
+		i.generator->UpdateForce(i.particle, deltaTime);
 	}
 
 
