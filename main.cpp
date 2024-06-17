@@ -87,7 +87,7 @@ int main(void)
     m->setColor(Vector3(0, 1, 0));
 
     Particle* p = new Particle();
-    p->setPosition(Vector3(300,300,173));
+    p->setPosition(Vector3(0,0,0));
 
     p->mass = 3;
     p->AddForce(Vector3(-6000,0,0));
@@ -105,11 +105,15 @@ int main(void)
 
     std::chrono::nanoseconds curr_ns(0);
 
+    bool isPaused = false;
+
+    (*Input::getInstance())[GLFW_KEY_SPACE] += { GLFW_PRESS, [&isPaused]() {isPaused = !isPaused;} };
 
     while (!glfwWindowShouldClose(window))
     {
-
+ 
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
 
         curr_time = clock::now();
         auto dur = std::chrono::duration_cast<std::chrono::nanoseconds> (curr_time - prev_time);
@@ -121,15 +125,17 @@ int main(void)
             curr_ns -= curr_ns;
 
             float dT = (float)ms.count() / 1000;
-            world.Update(dT);
+
+            if (!isPaused) {
+           
+                world.Update(dT);
+            }
+           
         }
 
+   
         CameraManager::getMain()->Draw();
         world.Draw();
-
-        if (Input::isKey(GLFW_KEY_SPACE)) {
-            std::cout << "Yo" << std::endl;
-        }
 
         glfwSwapBuffers(window);
         glfwPollEvents();

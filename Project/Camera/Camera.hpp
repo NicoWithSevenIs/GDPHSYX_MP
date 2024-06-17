@@ -6,6 +6,7 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
+
 class Camera {
 
 	protected: 
@@ -21,7 +22,7 @@ class Camera {
 		virtual void Draw() = 0;
 		void assignShader(Shader* shader);
 		
-		void getPosition();
-		void setPosition();
+		Vector3 getPosition();
+		void setPosition(Vector3 pos);
 
 };

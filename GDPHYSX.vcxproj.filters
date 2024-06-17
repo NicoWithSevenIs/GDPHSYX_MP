@@ -78,6 +78,9 @@
     <ClInclude Include="Project\Managers\Input.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Project\Camera\PerspectiveCamera.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include=".gitignore" />
@@ -143,6 +146,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Project\Managers\Input.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Camera\PerspectiveCamera.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

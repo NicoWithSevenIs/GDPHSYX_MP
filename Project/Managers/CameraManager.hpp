@@ -2,6 +2,7 @@
 
 
 #include "../Camera/OrthographicCamera.hpp"
+#include "../Camera/PerspectiveCamera.hpp"
 #include "../../config.hpp"
 #include <vector>
 namespace managers {
@@ -10,6 +11,8 @@ namespace managers {
 		
 		private:
 			OrthographicCamera ortho;
+			PerspectiveCamera persp;
+
 			std::vector<Camera*> cameras;
 
 		private:

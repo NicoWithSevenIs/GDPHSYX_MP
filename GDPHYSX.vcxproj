@@ -140,6 +140,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="config.hpp" />
+    <ClInclude Include="Project\Camera\PerspectiveCamera.hpp" />
     <ClInclude Include="Project\Managers\Input.hpp" />
     <ClInclude Include="Project\Forces\DragForceGenerator.hpp" />
     <ClInclude Include="Project\Forces\GravityForceGenerator.hpp" />
@@ -167,6 +168,7 @@
     <None Include="Project\Model\Shaders\Temp.vert" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Project\Camera\PerspectiveCamera.cpp" />
     <ClCompile Include="Project\Managers\Input.cpp" />
     <ClCompile Include="Project\Forces\DragForceGenerator.cpp" />
     <ClCompile Include="Project\Forces\GravityForceGenerator.cpp" />
