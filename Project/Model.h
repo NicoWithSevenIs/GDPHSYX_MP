@@ -22,7 +22,7 @@ class Model{
 
 	public:
 		Transform transform;
-
+		
 	private:
 		ObjData objData;
 		Shader* shader = nullptr;

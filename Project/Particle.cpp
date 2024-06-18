@@ -43,6 +43,10 @@ Vector3 Particle::getInitialVelocity() {
 	return this->initialVelocity;
 }
 
+void Particle::Instantiate() {
+	this->isDestroyed = false;
+}
+
 void Particle::Destroy() {
 	this->isDestroyed = true;
 }

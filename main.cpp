@@ -24,6 +24,7 @@
 #include "Project/Model.h"
 
 #include "Project/World.hpp"
+#include "Project/Controllers/RenderParticleController/RenderParticleController.hpp"
 
 #include "config.hpp"
 
@@ -48,6 +49,7 @@ void Shaboomboom(Particle* p, float velocity, float acceleration) {
 int main(void)
 {
     GLFWwindow* window;
+    srand(time(0));
 
     if (!glfwInit())
         return -1;
@@ -74,55 +76,22 @@ int main(void)
     OrthographicCamera* ortho = (OrthographicCamera*) CameraManager::getCamera();
     ortho->setOrthoData(0, SCREEN_WIDTH, 0, SCREEN_HEIGHT);
 
+    RenderParticleController renderparticleController = RenderParticleController(10);
+
     World world = World();
 
+    world.AddParticleBatch(renderparticleController.createRenderParticles());
 
-    /* GREEN (NE) */
-    Model* m = new Model("3D/sphere.obj");
+    /*Model* m = new Model("3D/sphere.obj");
+    m->setColor(Vector3(1, 0, 0));
     m->transform.scale = Vector3(10, 10, 10);
     m->assignShader(shader);
-    m->setColor(Vector3(0, 1, 0));
-
+    
     Particle* p = new Particle();
-    p->setPosition(Vector3(300,300,173));
-
-    //oh lord i feel like wet spaghetti rn so i guess ill be doing this instead
-    //Shaboomboom(p, 90, 8);
-   
-    p->mass = 3;
-    p->AddForce(Vector3(-6000,0,0));
-
-
-    /* RED (NW) */
-    Model* m2 = new Model(*m);
-    m2->setColor(Vector3(1, 0, 0));
-
-    Particle* p2 = new Particle();
-    p2->setPosition(Vector3(-300, 300, 201));
-    Shaboomboom(p2, 80, 14.5f);
-
-    /* BLUE (SE) */
-    Model* m3 = new Model(*m);
-    m3->setColor(Vector3(0, 0, 1));
-
-    Particle* p3 = new Particle();
-    p3->setPosition(Vector3(300, -300, -300));
-    Shaboomboom(p3, 130, 1);
-
-
-    /* YELLOW (SW) */
-    Model* m4 = new Model(*m);
-    m4->setColor(Vector3(1, 1, 0));
-
-    Particle* p4 = new Particle();
-    p4->setPosition(Vector3(-300, -300, -150));
-    Shaboomboom(p4, 110, 3);
-
-    world.AddParticle(new RenderParticle("Green", m, p));
-    world.AddParticle(new RenderParticle("Red", m2, p2));
-    world.AddParticle(new RenderParticle("Blue", m3, p3));
-    world.AddParticle(new RenderParticle("Yellow", m4, p4));
-
+    p->setPosition(Vector3(0, -300, 201));
+    
+    world.AddParticle(new RenderParticle("Red", m, p));*/
+    
     //might try to make a time singleton to handle this
 
     constexpr std::chrono::nanoseconds timestep(16ms);
@@ -138,7 +107,7 @@ int main(void)
     {
 
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
+        
         curr_time = clock::now();
         auto dur = std::chrono::duration_cast<std::chrono::nanoseconds> (curr_time - prev_time);
         prev_time = curr_time;
@@ -162,7 +131,7 @@ int main(void)
             break;
     }
 
-    world.printResults();
+    //world.printResults();
     glfwTerminate();
 
     std::cout << "Press [ENTER] to continue..." << std::endl;

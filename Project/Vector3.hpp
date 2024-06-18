@@ -31,8 +31,7 @@ class Vector3 {
 	public:
 		Vector3(): x(0), y(0), z(0){}
 		Vector3(const float x, const  float y, const float z): x(x), y(y), z(z){}
-
-
+		
 	public:
 		static Vector3 Normalized(const Vector3 v);
 		static float Distance(const Vector3 a, const Vector3 b);

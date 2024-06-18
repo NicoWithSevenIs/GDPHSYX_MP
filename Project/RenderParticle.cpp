@@ -8,3 +8,4 @@ void RenderParticle::Draw() {
 	this->model->transform.translation = this->particle->getPosition();
 	this->model->Draw();
 }
+

@@ -32,6 +32,7 @@ class Particle {
 
 	public:
 		void Update(float deltaTime);
+		void Instantiate();
 		void Destroy();
 		bool IsDestroyed();
 

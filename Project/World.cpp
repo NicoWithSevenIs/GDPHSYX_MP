@@ -36,6 +36,12 @@ void World::AddParticle(RenderParticle* p) {
 	forceRegistry.Add(p->particle, &gravity);
 }
 
+void World::AddParticleBatch(std::list<RenderParticle*> particleBatch) {
+	for (auto spawnedParticle : particleBatch) {
+		this->particleList.push_back(spawnedParticle);
+	}
+}
+
 void World::UpdateParticleList() {
 
 	auto removeCheck = [](RenderParticle* p) {
