@@ -19,10 +19,10 @@ private:
 	std::vector<std::function<void()>> onRelease;
 
 public:
-	inline void invoke(int invoke_type) { for (auto i : invoke_type == GLFW_PRESS ? onPress : onRelease) i(); }
+	inline void invoke(int invoke_type) { for (auto i : invoke_type == GLFW_PRESS || invoke_type == GLFW_REPEAT ? onPress : onRelease) i(); }
 
 	inline void operator += (const Key_Event& action) {
-		std::vector<std::function<void()>>* event = action.invoke_type == GLFW_PRESS ? &onPress : &onRelease;
+		std::vector<std::function<void()>>* event = action.invoke_type == GLFW_PRESS || action.invoke_type == GLFW_REPEAT ? &onPress : &onRelease;
 		event->push_back(action.function);
 	}
 	/*

@@ -86,7 +86,7 @@ int main(void)
     m->setColor(Vector3(0, 1, 0));
 
     Particle* p = new Particle();
-    p->setPosition(Vector3(-50,100,-50));
+    p->setPosition(Vector3(0,0,0));
 
     p->mass = 3;
     p->AddForce(Vector3(-6000,0,0));
@@ -111,6 +111,18 @@ int main(void)
     (*i)[GLFW_KEY_SPACE] += { GLFW_PRESS, [&isPaused]() {isPaused = !isPaused;} };
     (*i)[GLFW_KEY_1] += { GLFW_PRESS, []() { CameraManager::switchToOrtho(); }};
     (*i)[GLFW_KEY_2] += { GLFW_PRESS, []() { CameraManager::switchToPerspective(); }};
+
+
+    float x = 0;
+    float y = 0;
+    float step = 0.1f;
+
+    (*i)[GLFW_KEY_W] += { GLFW_REPEAT, [&x, step]() { x += step; }};
+    (*i)[GLFW_KEY_S] += { GLFW_REPEAT, [&x, step]() { x -= step; }};
+
+    (*i)[GLFW_KEY_D] += { GLFW_REPEAT, [&y, step]() { y += step; }};
+    (*i)[GLFW_KEY_A] += { GLFW_REPEAT, [&y, step]() { y -= step; }};
+   
 
     float lastX, lastY;
     float pitch = 0.f;
@@ -151,7 +163,10 @@ int main(void)
         cameraFront = glm::normalize(direction);
 
         //std::cout << xpos << "," << ypos << std::endl;
+   
     };
+
+
 
 
     while (!glfwWindowShouldClose(window))
@@ -178,10 +193,13 @@ int main(void)
         } 
         
         if (typeid(*CameraManager::getMain()) == typeid(PerspectiveCamera)) {
-            CameraManager::getMain()->setFront(Vector3(cameraFront));
+            PerspectiveCamera* p = (PerspectiveCamera*) CameraManager::getMain();
+            p->setRotation(Vector3(x,y,0));
             glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-        } else glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
-          
+        }
+        else glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+      
+       
         CameraManager::getMain()->Draw();
         world.Draw();
 
