@@ -125,7 +125,7 @@ void RenderParticleController::OnActivate(std::list<RenderParticle*> worldPartic
 	}
 }
 
-void RenderParticleController::tickDown(float time) {
-
+void RenderParticleController::tickDown(float time, World* refWorld) {
+	
 }
 

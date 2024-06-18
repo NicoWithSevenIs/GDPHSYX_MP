@@ -5,11 +5,15 @@
 #include "cmath"
 #include "../../RenderParticle.hpp"
 #include "../../Components/Shader.hpp"
+#include "../../World.hpp"
+
+class World;
 
 class RenderParticleController {
 	private:
 		int size;
-		float spawnInterval;
+		int count;
+		float spawnInterval = 1.0f;
 		float spawnTicks;
 	public:
 		
@@ -24,6 +28,6 @@ class RenderParticleController {
 		void OnActivate(std::list<RenderParticle*> worldParticles);
 
 	public:
-		void tickDown(float time);
+		void tickDown(float time, World* refWorld);
 
 };
