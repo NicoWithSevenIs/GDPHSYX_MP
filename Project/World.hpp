@@ -15,7 +15,7 @@ class World {
 		ForceRegistry forceRegistry;
 		GravityForceGenerator gravity;
 
-	private:
+	public:
 		std::list<RenderParticle*> particleList;
 		std::vector<RenderParticle*> rankings;
 

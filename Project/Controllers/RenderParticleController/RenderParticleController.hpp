@@ -13,10 +13,9 @@ class RenderParticleController {
 	private:
 		int size;
 		int count;
-		float spawnInterval = 1.0f;
+		float spawnInterval = 0.1f;
 		float spawnTicks;
-	public:
-		
+
 	public:
 		RenderParticleController(int size);
 	public:
@@ -28,6 +27,6 @@ class RenderParticleController {
 		void OnActivate(std::list<RenderParticle*> worldParticles);
 
 	public:
-		void tickDown(float time, World* refWorld);
+		void tickDown(World* refWorld);
 
 };

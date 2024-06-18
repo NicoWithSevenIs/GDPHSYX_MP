@@ -2,6 +2,7 @@
 
 RenderParticleController::RenderParticleController(int size) {
 	this->size = size;
+	this->count = 0;
 	this->spawnInterval = 5.0f;
 	this->spawnTicks = 0.0f;
 }
@@ -62,9 +63,9 @@ RenderParticle* RenderParticleController::createRenderParticle() {
 
 	float radius = static_cast<float>(rand()) / RAND_MAX;
 	radius = 2.0f + radius * (10.0f - 2.0f + 1.0f);
-	radius = 10.0f;
 
 	renderParticle->model->transform.scale = Vector3(radius, radius, radius);
+
 	this->intializeVelocities(renderParticle);
 	return renderParticle;
 }
@@ -86,7 +87,7 @@ void RenderParticleController::intializeVelocities(RenderParticle* pRenderPartic
 	float vY = vY_lb + vY_random * (vY_ub - vY_lb);
 	float vZ = vZ_lb + vZ_random * (vZ_ub - vZ_lb);
 
-	std::cout << "vX: " << vX << " vY: " << vY << " vZ: " << vZ << std::endl;
+	//std::cout << "vX: " << vX << " vY: " << vY << " vZ: " << vZ << std::endl;
 	pRenderParticle->particle->setVelocity(Vector3(vX, vY, vZ));
 	this->initializeDirection(pRenderParticle);
 	
@@ -125,7 +126,14 @@ void RenderParticleController::OnActivate(std::list<RenderParticle*> worldPartic
 	}
 }
 
-void RenderParticleController::tickDown(float time, World* refWorld) {
-	
+void RenderParticleController::tickDown(World* refWorld) {
+	if (this->spawnTicks >= this->spawnInterval) {
+		if (this->count != this->size) {
+			refWorld->AddParticle(this->createRenderParticle());
+			this->spawnTicks = 0.0f;
+			this->count += 1.0f;
+		}
+	}
+	this->spawnTicks += 0.1f;
 }
 

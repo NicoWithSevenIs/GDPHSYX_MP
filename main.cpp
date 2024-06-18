@@ -80,7 +80,7 @@ int main(void)
 
     World world = World();
 
-    world.AddParticleBatch(renderparticleController.createRenderParticleBatch());
+    //world.AddParticleBatch(renderparticleController.createRenderParticleBatch());
 
     /*Model* m = new Model("3D/sphere.obj");
     m->setColor(Vector3(1, 0, 0));
@@ -121,6 +121,7 @@ int main(void)
             world.Update(dT);
         }
 
+        renderparticleController.tickDown(&world);
         CameraManager::getCamera()->Draw();
         world.Draw();
 
