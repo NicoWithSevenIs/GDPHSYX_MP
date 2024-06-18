@@ -2,6 +2,7 @@
 
 #include "list"
 #include "cstdlib"
+#include "cmath"
 #include "../../RenderParticle.hpp"
 #include "../../Components/Shader.hpp"
 
@@ -19,6 +20,7 @@ class RenderParticleController {
 		std::list<RenderParticle*> createRenderParticles();
 		void intializeVelocities(RenderParticle* pRenderParticle);
 		void initializeAcceleration(RenderParticle* pRenderParticle);
+		void initializeDirection(RenderParticle* pRenderParticle);
 		void OnActivate(std::list<RenderParticle*> worldParticles);
 
 	public:

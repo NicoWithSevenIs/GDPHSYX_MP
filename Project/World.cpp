@@ -7,18 +7,16 @@ void World::Update(float deltaTime) {
 
 	for (auto p : particleList) {
 
-		if(p->particle->IsDestroyed())
-			continue;
+		//if(p->particle->IsDestroyed())
+		//	continue;
 		
 		p->particle->Update(deltaTime);
-		p->timeTravelled += deltaTime;
-
-
-		std::cout << p->name << ": " << Vector3::Distance(p->particle->getPosition(), Vector3::zero) <<std::endl;
-		if (Vector3::Distance(p->particle->getPosition(), Vector3::zero) <= 3.f) {
-			this->rankings.push_back(p);
-			p->particle->Destroy();
-		}	
+		
+		//std::cout << p->name << ": " << Vector3::Distance(p->particle->getPosition(), Vector3::zero) <<std::endl;
+		//if (Vector3::Distance(p->particle->getPosition(), Vector3::zero) <= 3.f) {
+		//	this->rankings.push_back(p);
+		//	p->particle->Destroy();
+		//}	
 
 	}
 		

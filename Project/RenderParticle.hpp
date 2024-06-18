@@ -12,8 +12,6 @@ class RenderParticle
 		Particle* particle;
 		Model* model;
 		float timeTravelled = 0;
-		float lifeSpan = 5.0f;
-		float lifeTicks = 0;
 
 	public:
 		RenderParticle(std::string name, Model* m, Particle* p ): name(name), model(m), particle(p) {

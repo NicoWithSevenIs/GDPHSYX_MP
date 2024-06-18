@@ -127,8 +127,8 @@ int main(void)
         glfwSwapBuffers(window);
         glfwPollEvents();
 
-        if(world.allInCenter())
-            break;
+        /*if(world.allInCenter())
+            break;*/
     }
 
     //world.printResults();

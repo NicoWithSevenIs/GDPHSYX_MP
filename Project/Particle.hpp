@@ -6,6 +6,9 @@ class Particle {
 	public:
 		float mass = 5;
 
+		float lifeSpan = 5.0f;
+		float lifeTicks = 0;
+
 	protected:
 		Vector3 accumulatedForce = Vector3::zero;
 		
@@ -48,4 +51,5 @@ class Particle {
 		Vector3 getPosition();
 		Vector3 getVelocity();
 		Vector3 getInitialVelocity();
+
 };
