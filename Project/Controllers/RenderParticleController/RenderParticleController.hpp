@@ -17,6 +17,8 @@ class RenderParticleController {
 	public:
 		
 		std::list<RenderParticle*> createRenderParticles();
+		void intializeVelocities(RenderParticle* pRenderParticle);
+		void initializeAcceleration(RenderParticle* pRenderParticle);
 		void OnActivate(std::list<RenderParticle*> worldParticles);
 
 	public:
