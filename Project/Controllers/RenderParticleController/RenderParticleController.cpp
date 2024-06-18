@@ -67,6 +67,7 @@ RenderParticle* RenderParticleController::createRenderParticle() {
 	renderParticle->model->transform.scale = Vector3(radius, radius, radius);
 
 	this->intializeVelocities(renderParticle);
+	this->initializeAcceleration(renderParticle);
 	return renderParticle;
 }
 
@@ -92,6 +93,28 @@ void RenderParticleController::intializeVelocities(RenderParticle* pRenderPartic
 	this->initializeDirection(pRenderParticle);
 	
 }	
+
+void RenderParticleController::initializeAcceleration(RenderParticle* pRenderParticle) {
+	float vX_ub = 10.0f;
+	float vY_ub = 15.0f;
+	float vZ_ub = 10.0f;
+
+	float vX_lb = 3.0f;
+	float vY_lb = 5.0f;
+	float vZ_lb = 3.0f;
+
+	float vX_random = static_cast<float>(rand()) / RAND_MAX;
+	float vY_random = static_cast<float>(rand()) / RAND_MAX;
+	float vZ_random = static_cast<float>(rand()) / RAND_MAX;
+
+	float vX = vX_lb + vX_random * (vX_ub - vX_lb);
+	float vY = vY_lb + vY_random * (vY_ub - vY_lb);
+	float vZ = vZ_lb + vZ_random * (vZ_ub - vZ_lb);
+
+	//std::cout << "vX: " << vX << " vY: " << vY << " vZ: " << vZ << std::endl;
+	pRenderParticle->particle->setAcceleration(Vector3(vX, vY, vZ));
+	
+}
 
 void RenderParticleController::initializeDirection(RenderParticle* pRenderParticle) {
 	float direction_x = static_cast<float>(rand()) / RAND_MAX;
