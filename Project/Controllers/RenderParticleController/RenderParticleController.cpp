@@ -6,31 +6,67 @@ RenderParticleController::RenderParticleController(int size) {
 	this->spawnTicks = 0.0f;
 }
 
-std::list<RenderParticle*> RenderParticleController::createRenderParticles() {
+std::list<RenderParticle*> RenderParticleController::createRenderParticleBatch() {
 	std::list<RenderParticle*> spawnedParticles = std::list<RenderParticle*>();
 
 	for (int i = 0; i < this->size; i++) {
-		
+
 		Shader* shader = (*ShaderManager::getInstance())[ShaderNames::MODEL_SHADER];
 		Model* pModel = new Model("3D/sphere.obj");
 		Particle* pParticle = new Particle();
 		RenderParticle* renderParticle = new RenderParticle("Sphere", pModel, pParticle);
 
+		float lifeSpanRand = static_cast<float>(rand()) / RAND_MAX;
+		lifeSpanRand = 1.0f + lifeSpanRand * (10.0f - 1.0f + 1.0f);
+		renderParticle->particle->lifeSpan = lifeSpanRand;
+
 		float r = static_cast<float>(rand()) / RAND_MAX;
 		float g = static_cast<float>(rand()) / RAND_MAX;
 		float b = static_cast<float>(rand()) / RAND_MAX;
-		
+
 		renderParticle->model->setColor(Vector3(r, g, b));
-		
+
 		renderParticle->particle->setPosition(Vector3(0, -300, 0));
 		renderParticle->model->assignShader(shader);
 
-		renderParticle->model->transform.scale = Vector3(5, 5, 5);
+		float radius = static_cast<float>(rand()) / RAND_MAX;
+		radius = 2.0f + radius * (10.0f - 2.0f + 1.0f);
+		
+		renderParticle->model->transform.scale = Vector3(radius, radius, radius);
+
 		this->intializeVelocities(renderParticle);
-		this->initializeAcceleration(renderParticle);
 		spawnedParticles.push_back(renderParticle);
 	}
 	return spawnedParticles;
+}
+
+RenderParticle* RenderParticleController::createRenderParticle() {
+
+	Shader* shader = (*ShaderManager::getInstance())[ShaderNames::MODEL_SHADER];
+	Model* pModel = new Model("3D/sphere.obj");
+	Particle* pParticle = new Particle();
+	RenderParticle* renderParticle = new RenderParticle("Sphere", pModel, pParticle);
+
+	float lifeSpanRand = static_cast<float>(rand()) / RAND_MAX;
+	lifeSpanRand = 1.0f + lifeSpanRand * (10.0f - 1.0f + 1.0f);
+	renderParticle->particle->lifeSpan = lifeSpanRand;
+
+	float r = static_cast<float>(rand()) / RAND_MAX;
+	float g = static_cast<float>(rand()) / RAND_MAX;
+	float b = static_cast<float>(rand()) / RAND_MAX;
+
+	renderParticle->model->setColor(Vector3(r, g, b));
+
+	renderParticle->particle->setPosition(Vector3(0, -300, 0));
+	renderParticle->model->assignShader(shader);
+
+	float radius = static_cast<float>(rand()) / RAND_MAX;
+	radius = 2.0f + radius * (10.0f - 2.0f + 1.0f);
+	radius = 10.0f;
+
+	renderParticle->model->transform.scale = Vector3(radius, radius, radius);
+	this->intializeVelocities(renderParticle);
+	return renderParticle;
 }
 
 void RenderParticleController::intializeVelocities(RenderParticle* pRenderParticle) {
@@ -53,33 +89,8 @@ void RenderParticleController::intializeVelocities(RenderParticle* pRenderPartic
 	std::cout << "vX: " << vX << " vY: " << vY << " vZ: " << vZ << std::endl;
 	pRenderParticle->particle->setVelocity(Vector3(vX, vY, vZ));
 	this->initializeDirection(pRenderParticle);
-
 	
 }	
-
-void RenderParticleController::initializeAcceleration(RenderParticle* pRenderParticle) {
-	float aX_ub = 15.0f;
-	float aY_ub = 15.0f;
-	float aZ_ub = 15.0f;
-
-	float aX_lb = 5.0f;
-	float aY_lb = 5.0f;
-	float aZ_lb = 5.0f;
-
-	float aX_random = static_cast<float>(rand()) / RAND_MAX;
-	float aY_random = static_cast<float>(rand()) / RAND_MAX;
-	float aZ_random = static_cast<float>(rand()) / RAND_MAX;
-
-	float aX = aX_lb + aX_random * (aX_ub - aX_lb);
-	float aY = aY_lb + aY_random * (aY_ub - aY_lb);
-	float aZ = aZ_lb + aZ_random * (aZ_ub - aZ_lb);
-
-	std::cout << "aX: " << aX << " aY: " << aY << " aZ: " << aZ << std::endl;
-
-	//this->initializeDirection(pRenderParticle);
-
-	pRenderParticle->particle->setAcceleration(Vector3(aX, aY, aZ));
-}
 
 void RenderParticleController::initializeDirection(RenderParticle* pRenderParticle) {
 	float direction_x = static_cast<float>(rand()) / RAND_MAX;
@@ -114,10 +125,7 @@ void RenderParticleController::OnActivate(std::list<RenderParticle*> worldPartic
 	}
 }
 
-void RenderParticleController::Update(float time, std::list<RenderParticle*> worldParticles) {
-	if (this->spawnTicks >= this->spawnInterval) {
-		this->spawnTicks = 0.0f;
-	}
-	this->spawnTicks += time;	
+void RenderParticleController::tickDown(float time) {
+
 }
 

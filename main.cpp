@@ -76,11 +76,11 @@ int main(void)
     OrthographicCamera* ortho = (OrthographicCamera*) CameraManager::getCamera();
     ortho->setOrthoData(0, SCREEN_WIDTH, 0, SCREEN_HEIGHT);
 
-    RenderParticleController renderparticleController = RenderParticleController(10);
+    RenderParticleController renderparticleController = RenderParticleController(1000);
 
     World world = World();
 
-    world.AddParticleBatch(renderparticleController.createRenderParticles());
+    world.AddParticleBatch(renderparticleController.createRenderParticleBatch());
 
     /*Model* m = new Model("3D/sphere.obj");
     m->setColor(Vector3(1, 0, 0));

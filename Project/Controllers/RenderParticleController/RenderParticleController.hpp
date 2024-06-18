@@ -17,13 +17,13 @@ class RenderParticleController {
 		RenderParticleController(int size);
 	public:
 		
-		std::list<RenderParticle*> createRenderParticles();
+		std::list<RenderParticle*> createRenderParticleBatch();
+		RenderParticle* createRenderParticle();
 		void intializeVelocities(RenderParticle* pRenderParticle);
-		void initializeAcceleration(RenderParticle* pRenderParticle);
 		void initializeDirection(RenderParticle* pRenderParticle);
 		void OnActivate(std::list<RenderParticle*> worldParticles);
 
 	public:
-		void Update(float time, std::list<RenderParticle*> worldParticles);
+		void tickDown(float time);
 
 };

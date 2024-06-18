@@ -6,7 +6,7 @@ class Particle {
 	public:
 		float mass = 5;
 
-		float lifeSpan = 5.0f;
+		float lifeSpan = 0;
 		float lifeTicks = 0;
 
 	protected:
@@ -17,7 +17,7 @@ class Particle {
 		// 0 nothing left
 		// 1 constant v
 
-		float damping = 0.5f;
+		float damping = 0.9f;
 		bool isDestroyed = false;
 
 	private:
