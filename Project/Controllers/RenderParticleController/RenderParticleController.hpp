@@ -15,7 +15,7 @@ class RenderParticleController {
 	public:
 		RenderParticleController(int size);
 	public:
-		glm::vec3 randomizeModelColor();
+		
 		std::list<RenderParticle*> createRenderParticles();
 		void OnActivate(std::list<RenderParticle*> worldParticles);
 

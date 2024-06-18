@@ -6,17 +6,6 @@ RenderParticleController::RenderParticleController(int size) {
 	this->spawnTicks = 0.0f;
 }
 
-glm::vec3 RenderParticleController::randomizeModelColor() {
-	
-	int upperbound = 1;
-	int lowerbound = 0;
-	float r = rand() % (upperbound - lowerbound) + 1;
-	float g = rand() % (upperbound - lowerbound) + 1;
-	float b = rand() % (upperbound - lowerbound) + 1;
-	glm::vec3 color = glm::vec3(r, g, b);
-	return color;
-}
-
 std::list<RenderParticle*> RenderParticleController::createRenderParticles() {
 	std::list<RenderParticle*> spawnedParticles = std::list<RenderParticle*>();
 	int upperbound = 1;
@@ -34,13 +23,9 @@ std::list<RenderParticle*> RenderParticleController::createRenderParticles() {
 		float b = static_cast<float>(rand()) / RAND_MAX;
 		
 		renderParticle->model->setColor(Vector3(r, g, b));
-
+		
 		renderParticle->particle->setPosition(Vector3(0, -300, 0));
 		renderParticle->model->assignShader(shader);
-
-		//glm::vec3 color = this->randomizeModelColor();
-		
-		
 
 		renderParticle->model->transform.scale = Vector3(10, 10, 10);
 		spawnedParticles.push_back(renderParticle);
@@ -52,8 +37,14 @@ void RenderParticleController::OnActivate(std::list<RenderParticle*> worldPartic
 	for (auto renderParticle : worldParticles) {
 		if (renderParticle->particle->IsDestroyed()) {
 			renderParticle->particle->Instantiate();
-			renderParticle->particle->setPosition(Vector3(0, -300, 0));
-			//renderParticle->model->setColor(this->randomizeModelColor());
+
+			float r = static_cast<float>(rand()) / RAND_MAX;
+			float g = static_cast<float>(rand()) / RAND_MAX;
+			float b = static_cast<float>(rand()) / RAND_MAX;
+
+			renderParticle->model->setColor(Vector3(r, g, b));
+
+			renderParticle->particle->setPosition(Vector3(0, -300, 0));			
 		}
 	}
 }
