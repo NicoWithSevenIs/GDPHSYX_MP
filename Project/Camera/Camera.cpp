@@ -14,3 +14,12 @@ Vector3 Camera::getPosition() {
 void Camera::setPosition(Vector3 pos) {
 	this->cameraPos = pos;
 }
+
+
+Vector3 Camera::getFront() {
+	return this->cameraFront;
+}
+
+void Camera::setFront(Vector3 front) {
+	this->cameraFront = front;
+}

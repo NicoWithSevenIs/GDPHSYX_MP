@@ -23,6 +23,9 @@ namespace managers {
 			//static void switchCamera();
 			static void initializeCameras(Shader* shader);
 
+			static void switchToOrtho();
+			static void switchToPerspective();
+
 		#pragma region Singleton
 
 		private:

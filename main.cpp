@@ -5,6 +5,7 @@
 #include <glm/gtc/type_ptr.hpp>
 
 #include <GLFW/glfw3.h>
+#include <typeinfo>
 
 #define TINYOBJLOADER_IMPLEMENTATION 
 //#include "tiny_obj_loader.h"
@@ -55,9 +56,6 @@ int main(void)
     if (!glfwInit())
         return -1;
 
-    float window_width = 500.f;
-    float window_height = 500.f;
-
     window = glfwCreateWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "PC01 John Enrico Tolentino", NULL, NULL);
     if (!window)
     {
@@ -69,10 +67,11 @@ int main(void)
     gladLoadGL();
 
     glfwSetKeyCallback(window, Input::keyCallback);
+    glfwSetCursorPosCallback(window, Input::mouseCallback);
 
     ShaderManager::getInstance()->buildShaders();
 
-    //glViewport(0, 0, window_width, window_height);
+    glViewport(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
 
     Shader* shader = (*ShaderManager::getInstance())[ShaderNames::MODEL_SHADER];
     CameraManager::initializeCameras(shader);
@@ -87,7 +86,7 @@ int main(void)
     m->setColor(Vector3(0, 1, 0));
 
     Particle* p = new Particle();
-    p->setPosition(Vector3(0,0,0));
+    p->setPosition(Vector3(-50,100,-50));
 
     p->mass = 3;
     p->AddForce(Vector3(-6000,0,0));
@@ -107,7 +106,53 @@ int main(void)
 
     bool isPaused = false;
 
-    (*Input::getInstance())[GLFW_KEY_SPACE] += { GLFW_PRESS, [&isPaused]() {isPaused = !isPaused;} };
+    Input* i = Input::getInstance();
+
+    (*i)[GLFW_KEY_SPACE] += { GLFW_PRESS, [&isPaused]() {isPaused = !isPaused;} };
+    (*i)[GLFW_KEY_1] += { GLFW_PRESS, []() { CameraManager::switchToOrtho(); }};
+    (*i)[GLFW_KEY_2] += { GLFW_PRESS, []() { CameraManager::switchToPerspective(); }};
+
+    float lastX, lastY;
+    float pitch = 0.f;
+    float yaw = -90.f;
+    bool firstMouse = true;
+    glm::vec3 cameraFront;
+
+    (*i) += [&lastX, &lastY, &pitch, &yaw, &firstMouse, &cameraFront](float xpos, float ypos) {
+
+        if (firstMouse)
+        {
+            lastX = xpos;
+            lastY = ypos;
+            firstMouse = false;
+        }
+
+        float xoffset = xpos - lastX;
+        float yoffset = lastY - ypos;
+        lastX = xpos;
+        lastY = ypos;
+
+        float sensitivity = 0.1f;
+        xoffset *= sensitivity;
+        yoffset *= sensitivity;
+
+        yaw += xoffset;
+        pitch += yoffset;
+
+        if (pitch > 89.0f)
+            pitch = 89.0f;
+        if (pitch < -89.0f)
+            pitch = -89.0f;
+
+        glm::vec3 direction;
+        direction.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
+        direction.y = sin(glm::radians(pitch));
+        direction.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
+        cameraFront = glm::normalize(direction);
+
+        //std::cout << xpos << "," << ypos << std::endl;
+    };
+
 
     while (!glfwWindowShouldClose(window))
     {
@@ -127,13 +172,16 @@ int main(void)
             float dT = (float)ms.count() / 1000;
 
             if (!isPaused) {
-           
                 world.Update(dT);
             }
            
-        }
-
-   
+        } 
+        
+        if (typeid(*CameraManager::getMain()) == typeid(PerspectiveCamera)) {
+            CameraManager::getMain()->setFront(Vector3(cameraFront));
+            glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+        } else glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+          
         CameraManager::getMain()->Draw();
         world.Draw();
 

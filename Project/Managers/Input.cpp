@@ -4,7 +4,10 @@ void Input::keyCallback(GLFWwindow* window, int key, int scancode, int action, i
 	(*getInstance())[key].invoke(action);
 }
 
-
+void Input::mouseCallback(GLFWwindow* window, double xPos, double yPos) {
+	for (auto i : getInstance()->mouse_callbacks) 
+		i(xPos,yPos);	
+}
 
 #pragma region Singleton
 

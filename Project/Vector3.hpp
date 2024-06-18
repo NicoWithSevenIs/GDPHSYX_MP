@@ -31,6 +31,7 @@ class Vector3 {
 	public:
 		Vector3(): x(0), y(0), z(0){}
 		Vector3(const float x, const  float y, const float z): x(x), y(y), z(z){}
+		Vector3(const glm::vec3& vec): x(vec.x), y(vec.y), z(vec.z){}
 
 
 	public:

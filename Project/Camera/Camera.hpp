@@ -24,5 +24,8 @@ class Camera {
 		
 		Vector3 getPosition();
 		void setPosition(Vector3 pos);
+		
+		Vector3 getFront();
+		void setFront(Vector3 front);
 
 };
