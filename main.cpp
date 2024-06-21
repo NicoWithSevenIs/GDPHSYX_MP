@@ -60,7 +60,7 @@ int main(void)
     if (!glfwInit())
         return -1;
 
-    window = glfwCreateWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "PC01 John Enrico Tolentino", NULL, NULL);
+    window = glfwCreateWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Group5_Tolentino&Ong_Engine1_Phase1", NULL, NULL);
     if (!window)
     {
         glfwTerminate();
