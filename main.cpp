@@ -25,6 +25,8 @@
 #include "Project/Particle.hpp"
 #include "Project/Model.h"
 
+
+
 #include "Project/World.hpp"
 #include "Project/Controllers/RenderParticleController/RenderParticleController.hpp"
 
@@ -34,6 +36,19 @@
 using namespace managers;
 using namespace std::chrono_literals;
 
+//will fix encapsulation issues on another day haha
+
+/*
+    Fires the sphere towards the origin
+*/
+void Shaboomboom(Particle* p, float velocity, float acceleration) {
+    Vector3 dir = p->getPosition();
+    dir.Normalize();
+    dir *= -1;
+
+    p->setVelocity(dir * velocity);
+    //p->setAcceleration(dir * acceleration);
+}
 
 int main(void)
 {   
@@ -45,7 +60,7 @@ int main(void)
     if (!glfwInit())
         return -1;
 
-    window = glfwCreateWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "ONG // TOLENTINO", NULL, NULL);
+    window = glfwCreateWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "PC01 John Enrico Tolentino", NULL, NULL);
     if (!window)
     {
         glfwTerminate();
@@ -55,8 +70,6 @@ int main(void)
     glfwMakeContextCurrent(window);
     gladLoadGL();
 
-
-    //Registers Input Detection
     glfwSetKeyCallback(window, Input::keyCallback);
     glfwSetCursorPosCallback(window, Input::mouseCallback);
 
@@ -72,6 +85,8 @@ int main(void)
 
     World world = World();
 
+    //might try to make a time singleton to handle this
+
     constexpr std::chrono::nanoseconds timestep(16ms);
     using clock = std::chrono::high_resolution_clock;
 
@@ -82,33 +97,22 @@ int main(void)
 
     bool isPaused = false;
 
+    Input* i = Input::getInstance();
+
+    (*i)[GLFW_KEY_SPACE] += { GLFW_PRESS, [&isPaused]() {isPaused = !isPaused;} };
+    (*i)[GLFW_KEY_1] += { GLFW_PRESS, []() { CameraManager::switchToOrtho(); }};
+    (*i)[GLFW_KEY_2] += { GLFW_PRESS, []() { CameraManager::switchToPerspective(); }};
+
+
     float x = 0;
     float y = 0;
     float step = 0.1f;
 
+    (*i)[GLFW_KEY_W] += { GLFW_REPEAT, [&x, step]() { x += step; }};
+    (*i)[GLFW_KEY_S] += { GLFW_REPEAT, [&x, step]() { x -= step; }};
 
-    //Input is a singleton class that stores actions for keyboard input and mouse input
-    #pragma region Input Handling
-    Input& input = *Input::getInstance();
-
-    //Pausing
-    input[GLFW_KEY_SPACE] += { GLFW_PRESS, [&isPaused]() {isPaused = !isPaused;} };
-
-
-    //Camera Switching
-    input[GLFW_KEY_1] += { GLFW_PRESS, []() { CameraManager::switchToOrtho(); }};
-    input[GLFW_KEY_2] += { GLFW_PRESS, []() { CameraManager::switchToPerspective(); }};
-
-    //Camera Rotations
-    input[GLFW_KEY_W] += { GLFW_REPEAT, [&x, step]() { x += step; }};
-    input[GLFW_KEY_S] += { GLFW_REPEAT, [&x, step]() { x -= step; }};
-
-    input[GLFW_KEY_D] += { GLFW_REPEAT, [&y, step]() { y += step; }};
-    input[GLFW_KEY_A] += { GLFW_REPEAT, [&y, step]() { y -= step; }};
-
-
-    //Backspace to reset rotation
-    input[GLFW_KEY_BACKSPACE] += { GLFW_PRESS, [&x, &y]() { x =0; y = 0;}};
+    (*i)[GLFW_KEY_D] += { GLFW_REPEAT, [&y, step]() { y += step; }};
+    (*i)[GLFW_KEY_A] += { GLFW_REPEAT, [&y, step]() { y -= step; }};
    
  
     glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
@@ -131,19 +135,16 @@ int main(void)
 
             if (!isPaused){
                 world.Update(dT);
-                if (renderparticleController.triggerSpawn)
-                    world.AddParticle(renderparticleController.createRenderParticle());
             }
                 
             
         } 
 
-        renderparticleController.tickDown(&world, 0.01f);
-            CameraManager::DoOnAllCameras([x,y](Camera* camera) { 
-                camera->setRotation(Vector3(x, y, 0)); 
-            } 
-        );
+        if (!isPaused && renderparticleController.triggerSpawn)
+            world.AddParticle(renderparticleController.createRenderParticle());
 
+        renderparticleController.tickDown(&world, 0.01f);
+        CameraManager::DoOnAllCameras([x,y](Camera* camera) { camera->setRotation(Vector3(x, y, 0)); } );
         CameraManager::getMain()->Draw();
         world.Draw();
 

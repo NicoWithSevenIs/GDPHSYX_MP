@@ -10,6 +10,8 @@ RenderParticleController::RenderParticleController(int size) {
 
 // spawns a render particle that is added to the World class in main.cpp //
 RenderParticle* RenderParticleController::createRenderParticle() {
+	std::cout << "Created a Render Particle!" << std::endl;
+
 	Shader* shader = (*ShaderManager::getInstance())[ShaderNames::MODEL_SHADER];
 	Model* pModel = new Model("3D/sphere.obj");
 	Particle* pParticle = new Particle();
@@ -39,6 +41,7 @@ RenderParticle* RenderParticleController::createRenderParticle() {
 	// values for upperbounds and lowerbounds are pre-defined // 
 	this->intializeVelocities(renderParticle);
 	this->initializeAcceleration(renderParticle);
+	renderParticle->particle->AddForce(Vector3(0, 9000, 0));
 
 	this->triggerSpawn = false;
 
@@ -86,10 +89,11 @@ void RenderParticleController::initializeDirection(RenderParticle* pRenderPartic
 
 void RenderParticleController::tickDown(World* refWorld, float deltaTime) {
 	if (this->spawnTicks >= this->spawnInterval) {
-		if (this->count != this->size) { // count to check if the number of render particles set by user has already been spawned //
+		if (this->count <= this->size) { // count to check if the number of render particles set by user has already been spawned //
 			this->triggerSpawn = true; // flag is set to true to allow spawning, this is to prevent render particles in being generated //
+			std::cout << "count: " << count << std::endl;
 			this->spawnTicks = 0.0f;
-			this->count++;
+			this->count+= 1;
 		}
 	}
 	this->spawnTicks += deltaTime;
