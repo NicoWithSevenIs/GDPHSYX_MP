@@ -178,12 +178,14 @@ int main(void)
 
             if (!isPaused){
                 world.Update(dT);
-                if (renderparticleController.triggerSpawn)
-                    world.AddParticle(renderparticleController.createRenderParticle());
             }
                 
             
         } 
+
+        if (!isPaused && renderparticleController.triggerSpawn)
+            world.AddParticle(renderparticleController.createRenderParticle());
+
         renderparticleController.tickDown(&world, 0.01f);
         CameraManager::DoOnAllCameras([x,y](Camera* camera) { camera->setRotation(Vector3(x, y, 0)); } );
         CameraManager::getMain()->Draw();
