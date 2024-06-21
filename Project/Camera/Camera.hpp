@@ -24,8 +24,13 @@ class Camera {
 	public:
 		Camera(Vector3 cameraPos = Vector3(0,0,3), Vector3 cameraFront = Vector3(0, 0, -1));
 
+
+	protected:
+		virtual void configureMatrices(glm::mat4& projection, glm::mat4& view);
+
 	public:
-		virtual void Draw() = 0;
+		void Draw();
+		
 		void assignShader(Shader* shader);
 		
 		Vector3 getPosition();
