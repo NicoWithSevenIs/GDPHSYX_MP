@@ -26,6 +26,8 @@ class Camera {
 
 
 	protected:
+
+		//configuration for view and projection matrices, it's called in draw just before said matrices are fed to the shader
 		virtual void configureMatrices(glm::mat4& projection, glm::mat4& view);
 
 	public:

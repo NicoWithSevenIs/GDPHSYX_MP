@@ -33,12 +33,13 @@ public:
 };
 
 
+//operator overloading's used here to somewhat emulate C# actions
 class Input
 {
 
 	private:
-		std::unordered_map<int, KeyData> key_list;
-		std::vector<std::function<void(float, float)>> mouse_callbacks;
+		std::unordered_map<int, KeyData> key_list; //key action
+		std::vector<std::function<void(float, float)>> mouse_callbacks; //mouse actions 
 
 	public:
 		KeyData& operator [](int key) {

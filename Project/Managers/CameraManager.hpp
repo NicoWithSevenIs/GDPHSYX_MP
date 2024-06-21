@@ -7,6 +7,8 @@
 #include <vector>
 #include <functional>
 
+
+//Stores all instances of camera. Only way to retrieve a camera ouside is via getMain()
 namespace managers {
 
 	class CameraManager {
@@ -15,6 +17,8 @@ namespace managers {
 			OrthographicCamera ortho;
 			PerspectiveCamera persp;
 
+
+			//all instances of camera should be added here upon instantiation so it could be used by DoOnAllCameras
 			std::vector<Camera*> cameras;
 
 		private:
@@ -22,9 +26,11 @@ namespace managers {
 
 		public:
 			static Camera* getMain();
-			//static void switchCamera();
+
+			//sets the shader for all cameras
 			static void initializeCameras(Shader* shader);
 
+			//camera switching
 			static void switchToOrtho();
 			static void switchToPerspective();
 
