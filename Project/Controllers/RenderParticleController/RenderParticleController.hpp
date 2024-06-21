@@ -20,14 +20,12 @@ class RenderParticleController {
 	public:
 		RenderParticleController(int size);
 	public:
-		
-		std::list<RenderParticle*> createRenderParticleBatch();
+
 		RenderParticle* createRenderParticle();
 		void intializeVelocities(RenderParticle* pRenderParticle);
 		void initializeAcceleration(RenderParticle* pRenderParticle);
 		void initializeDirection(RenderParticle* pRenderParticle);
-		void OnActivate(std::list<RenderParticle*> worldParticles);
-
+		
 	public:
 		void tickDown(World* refWorld, float deltaTime);
 

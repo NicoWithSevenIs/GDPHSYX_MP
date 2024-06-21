@@ -1,53 +1,21 @@
 #include "RenderParticleController.hpp"
 
 RenderParticleController::RenderParticleController(int size) {
-	this->size = size;
+	this->size = size; // size refers to the user-defined size or amount //
 	this->count = 0;
 	this->spawnInterval = 0.05f;
 	this->spawnTicks = 0.0f;
-	this->triggerSpawn = false;
+	this->triggerSpawn = false; // a flag that is modified to true for when spawnTicks hit the spawnInterval and is turned off after spawning one render particle // 
 }
 
-std::list<RenderParticle*> RenderParticleController::createRenderParticleBatch() {
-	std::list<RenderParticle*> spawnedParticles = std::list<RenderParticle*>();
-
-	for (int i = 0; i < this->size; i++) {
-
-		Shader* shader = (*ShaderManager::getInstance())[ShaderNames::MODEL_SHADER];
-		Model* pModel = new Model("3D/sphere.obj");
-		Particle* pParticle = new Particle();
-		RenderParticle* renderParticle = new RenderParticle("Sphere", pModel, pParticle);
-
-		float lifeSpanRand = static_cast<float>(rand()) / RAND_MAX;
-		lifeSpanRand = 1.0f + lifeSpanRand * (10.0f - 1.0f + 1.0f);
-		renderParticle->particle->lifeSpan = lifeSpanRand;
-
-		float r = static_cast<float>(rand()) / RAND_MAX;
-		float g = static_cast<float>(rand()) / RAND_MAX;
-		float b = static_cast<float>(rand()) / RAND_MAX;
-
-		renderParticle->model->setColor(Vector3(r, g, b));
-
-		renderParticle->particle->setPosition(Vector3(0, -300, 0));
-		renderParticle->model->assignShader(shader);
-
-		float radius = static_cast<float>(rand()) / RAND_MAX;
-		radius = 2.0f + radius * (10.0f - 2.0f + 1.0f);
-		
-		renderParticle->model->transform.scale = Vector3(radius, radius, radius);
-
-		this->intializeVelocities(renderParticle);
-		spawnedParticles.push_back(renderParticle);
-	}
-	return spawnedParticles;
-}
-
+// spawns a render particle that is added to the World class in main.cpp //
 RenderParticle* RenderParticleController::createRenderParticle() {
 	Shader* shader = (*ShaderManager::getInstance())[ShaderNames::MODEL_SHADER];
 	Model* pModel = new Model("3D/sphere.obj");
 	Particle* pParticle = new Particle();
 	RenderParticle* renderParticle = new RenderParticle("Sphere", pModel, pParticle);
 
+	// Randomization for lifespawn from 1 to 10 seconds //
 	float lifeSpanRand = static_cast<float>(rand()) / RAND_MAX;
 	lifeSpanRand = 1.0f + lifeSpanRand * (10.0f - 1.0f + 1.0f);
 	renderParticle->particle->lifeSpan = lifeSpanRand;
@@ -61,11 +29,14 @@ RenderParticle* RenderParticleController::createRenderParticle() {
 	renderParticle->particle->setPosition(Vector3(0, -300, 0));
 	renderParticle->model->assignShader(shader);
 
+	// Randomization for model radius //
 	float radius = static_cast<float>(rand()) / RAND_MAX;
 	radius = 2.0f + radius * (10.0f - 2.0f + 1.0f);
 
 	renderParticle->model->transform.scale = Vector3(radius, radius, radius);
 
+	// Randomization for the velocities and accelerations //
+	// values for upperbounds and lowerbounds are pre-defined // 
 	this->intializeVelocities(renderParticle);
 	this->initializeAcceleration(renderParticle);
 
@@ -136,26 +107,10 @@ void RenderParticleController::initializeDirection(RenderParticle* pRenderPartic
 	pRenderParticle->particle->setVelocity(Vector3(x, y, z));
 }
 
-void RenderParticleController::OnActivate(std::list<RenderParticle*> worldParticles) {
-	for (auto renderParticle : worldParticles) {
-		if (renderParticle->particle->IsDestroyed()) {
-			renderParticle->particle->Instantiate();
-
-			float r = static_cast<float>(rand()) / RAND_MAX;
-			float g = static_cast<float>(rand()) / RAND_MAX;
-			float b = static_cast<float>(rand()) / RAND_MAX;
-
-			renderParticle->model->setColor(Vector3(r, g, b));
-			renderParticle->particle->AddForce(Vector3(0, 9000, 0));
-			renderParticle->particle->setPosition(Vector3(0, -300, 0));			
-		}
-	}
-}
-
 void RenderParticleController::tickDown(World* refWorld, float deltaTime) {
 	if (this->spawnTicks >= this->spawnInterval) {
-		if (this->count != this->size) {
-			this->triggerSpawn = true;
+		if (this->count != this->size) { // count to check if the number of render particles set by user has already been spawned //
+			this->triggerSpawn = true; // flag is set to true to allow spawning, this is to prevent render particles in being generated //
 			this->spawnTicks = 0.0f;
 			this->count++;
 		}

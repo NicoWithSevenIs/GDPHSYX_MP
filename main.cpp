@@ -80,6 +80,7 @@ int main(void)
     Shader* shader = (*ShaderManager::getInstance())[ShaderNames::MODEL_SHADER];
     CameraManager::initializeCameras(shader);
 
+    // RenderParticleController is the class that handles the spawning of the particles //
     RenderParticleController renderparticleController = RenderParticleController(sizeInput);
 
     World world = World();
