@@ -9,9 +9,9 @@ void OrthographicCamera::configureMatrices(glm::mat4& projection, glm::mat4& vie
 
     view = glm::lookAt(pos, front, (glm::vec3)Vector3::up);
 
-    view = glm::translate(view, -pos);
+    //view = glm::translate(view, -pos);
     view *= glm::toMat4(glm::quat((glm::vec3)this->rotation));
-    view = glm::translate(view, pos);
+    //view = glm::translate(view, pos);
 
 
     projection = glm::ortho(left, right, bottom, top, znear, zfar);

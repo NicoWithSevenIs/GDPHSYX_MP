@@ -11,7 +11,7 @@ void CameraManager::initializeCameras(Shader* shader) {
 	CameraManager* i = getInstance();
 
 	i->ortho = OrthographicCamera(Vector3(-350,-350,200), Vector3::back);
-	i->ortho.setOrthoData(0, SCREEN_WIDTH, 0, SCREEN_HEIGHT);
+	i->ortho.setOrthoData(0, SCREEN_WIDTH, 0, SCREEN_HEIGHT, -3.f, 10000.f);
 	i->cameras.push_back(&i->ortho);
 
 	i->persp = PerspectiveCamera(Vector3(0, 0, 600), Vector3::back);
