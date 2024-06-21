@@ -46,44 +46,26 @@ RenderParticle* RenderParticleController::createRenderParticle() {
 }
 
 void RenderParticleController::intializeVelocities(RenderParticle* pRenderParticle) {
-	float vX_ub = 140.0f;
-	float vY_ub = 240.0f;
-	float vZ_ub = 300.0f;
 
-	float vX_lb = -140.0f;
-	float vY_lb = 50.0f;
-	float vZ_lb = -300.0f;
+	Vector3 ub(140.f, 240.f, 300.f);
+	Vector3 lb(-140.f, 50.f, -300.f);
 
-	float vX_random = static_cast<float>(rand()) / RAND_MAX;
-	float vY_random = static_cast<float>(rand()) / RAND_MAX;
-	float vZ_random = static_cast<float>(rand()) / RAND_MAX;
+	float vX = lb.x + r() * (ub.x - lb.x);
+	float vY = lb.y + r() * (ub.y - lb.y);
+	float vZ = lb.x + r() * (ub.z - lb.z);
 
-	float vX = vX_lb + vX_random * (vX_ub - vX_lb);
-	float vY = vY_lb + vY_random * (vY_ub - vY_lb);
-	float vZ = vZ_lb + vZ_random * (vZ_ub - vZ_lb);
-
-	//std::cout << "vX: " << vX << " vY: " << vY << " vZ: " << vZ << std::endl;
 	pRenderParticle->particle->setVelocity(Vector3(vX, vY, vZ));
 	this->initializeDirection(pRenderParticle);
-	
 }	
 
 void RenderParticleController::initializeAcceleration(RenderParticle* pRenderParticle) {
-	float vX_ub = 15.0f;
-	float vY_ub = 20.0f;
-	float vZ_ub = 59.0f;
 
-	float vX_lb = 10.0f;
-	float vY_lb = 15.0f;
-	float vZ_lb = 45.0f;
+	Vector3 ub(15.f, 20.f, 59.f);
+	Vector3 lb(10.f, 15.f, 45.f);
 
-	float vX_random = static_cast<float>(rand()) / RAND_MAX;
-	float vY_random = static_cast<float>(rand()) / RAND_MAX;
-	float vZ_random = static_cast<float>(rand()) / RAND_MAX;
-
-	float vX = vX_lb + vX_random * (vX_ub - vX_lb);
-	float vY = vY_lb + vY_random * (vY_ub - vY_lb);
-	float vZ = vZ_lb + vZ_random * (vZ_ub - vZ_lb);
+	float vX = lb.x + r() * (ub.x - lb.x);
+	float vY = lb.y + r() * (ub.y - lb.y);
+	float vZ = lb.z + r() * (ub.z - lb.z);
 
 	//std::cout << "vX: " << vX << " vY: " << vY << " vZ: " << vZ << std::endl;
 	pRenderParticle->particle->setAcceleration(Vector3(vX, vY, vZ));
@@ -91,20 +73,15 @@ void RenderParticleController::initializeAcceleration(RenderParticle* pRenderPar
 }
 
 void RenderParticleController::initializeDirection(RenderParticle* pRenderParticle) {
-	float direction_x = static_cast<float>(rand()) / RAND_MAX;
-	float direction_y = static_cast<float>(rand()) / RAND_MAX;
-	float direction_z = static_cast<float>(rand()) / RAND_MAX;
 
-	Vector3 direction = Vector3(direction_x, direction_y, direction_z);
+	Vector3 direction = this->getRandomVector();
 	direction.Normalize();
 
-	Vector3 vector = pRenderParticle->particle->getVelocity();
-	float x = vector.x * direction.x;
-	float y = vector.y * direction.y;
-	float z = vector.z * direction.z;
+	Vector3 vector = Vector3::Component(pRenderParticle->particle->getVelocity(), direction);
+	vector.y = abs(vector.y);
 
-	y = abs(y);
-	pRenderParticle->particle->setVelocity(Vector3(x, y, z));
+	pRenderParticle->particle->setVelocity(vector);
+
 }
 
 void RenderParticleController::tickDown(World* refWorld, float deltaTime) {

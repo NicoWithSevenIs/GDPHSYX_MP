@@ -26,10 +26,8 @@ public:
 		std::vector<std::function<void()>>* event = action.invoke_type == GLFW_PRESS || action.invoke_type == GLFW_REPEAT ? &onPress : &onRelease;
 		event->push_back(action.function);
 	}
-	/*
-	inline void operator -= (const Key_Event& action) {
-	}
-	*/
+
+	/* inline void operator -= (const Key_Event& action) {} */
 };
 
 

@@ -110,52 +110,7 @@ int main(void)
     //Backspace to reset rotation
     input[GLFW_KEY_BACKSPACE] += { GLFW_PRESS, [&x, &y]() { x =0; y = 0;}};
    
-    
-    float lastX, lastY;
-    float pitch = 0.f;
-    float yaw = -90.f;
-    bool firstMouse = true;
-    glm::vec3 cameraFront;
-
-
-    //first person camera (for testing)
-    input += [&lastX, &lastY, &pitch, &yaw, &firstMouse, &cameraFront](float xpos, float ypos) {
-
-        if (firstMouse)
-        {
-            lastX = xpos;
-            lastY = ypos;
-            firstMouse = false;
-        }
-
-        float xoffset = xpos - lastX;
-        float yoffset = lastY - ypos;
-        lastX = xpos;
-        lastY = ypos;
-
-        float sensitivity = 0.1f;
-        xoffset *= sensitivity;
-        yoffset *= sensitivity;
-
-        yaw += xoffset;
-        pitch += yoffset;
-
-        if (pitch > 89.0f)
-            pitch = 89.0f;
-        if (pitch < -89.0f)
-            pitch = -89.0f;
-
-        glm::vec3 direction;
-        direction.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
-        direction.y = sin(glm::radians(pitch));
-        direction.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
-        cameraFront = glm::normalize(direction);
-
-        //std::cout << xpos << "," << ypos << std::endl;
-    };
-
-    #pragma endregion Input Handling
-
+ 
     glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
     while (!glfwWindowShouldClose(window))

@@ -19,6 +19,16 @@ class RenderParticleController {
 		bool triggerSpawn;
 	public:
 		RenderParticleController(int size);
+
+
+	private:
+		inline float r() {
+			return static_cast<float>(rand()) / RAND_MAX;
+		}
+		inline Vector3 getRandomVector() {
+			return Vector3(r(), r(), r());
+		}
+
 	public:
 
 		RenderParticle* createRenderParticle();
