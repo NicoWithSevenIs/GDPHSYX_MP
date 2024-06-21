@@ -36,20 +36,6 @@
 using namespace managers;
 using namespace std::chrono_literals;
 
-//will fix encapsulation issues on another day haha
-
-/*
-    Fires the sphere towards the origin
-*/
-void Shaboomboom(Particle* p, float velocity, float acceleration) {
-    Vector3 dir = p->getPosition();
-    dir.Normalize();
-    dir *= -1;
-
-    p->setVelocity(dir * velocity);
-    //p->setAcceleration(dir * acceleration);
-}
-
 int main(void)
 {   
     int sizeInput = Input::returnIntInput();
@@ -97,23 +83,23 @@ int main(void)
 
     bool isPaused = false;
 
-    Input* i = Input::getInstance();
+    Input& input = *Input::getInstance();
 
-    (*i)[GLFW_KEY_SPACE] += { GLFW_PRESS, [&isPaused]() {isPaused = !isPaused;} };
-    (*i)[GLFW_KEY_1] += { GLFW_PRESS, []() { CameraManager::switchToOrtho(); }};
-    (*i)[GLFW_KEY_2] += { GLFW_PRESS, []() { CameraManager::switchToPerspective(); }};
+    input[GLFW_KEY_SPACE] += { GLFW_PRESS, [&isPaused]() {isPaused = !isPaused;} };
+    input[GLFW_KEY_1] += { GLFW_PRESS, []() { CameraManager::switchToOrtho(); }};
+    input[GLFW_KEY_2] += { GLFW_PRESS, []() { CameraManager::switchToPerspective(); }};
 
 
     float x = 0;
     float y = 0;
     float step = 0.1f;
 
-    (*i)[GLFW_KEY_W] += { GLFW_REPEAT, [&x, step]() { x += step; }};
-    (*i)[GLFW_KEY_S] += { GLFW_REPEAT, [&x, step]() { x -= step; }};
+    input[GLFW_KEY_W] += { GLFW_REPEAT, [&x, step]() { x += step; }};
+    input[GLFW_KEY_S] += { GLFW_REPEAT, [&x, step]() { x -= step; }};
 
-    (*i)[GLFW_KEY_D] += { GLFW_REPEAT, [&y, step]() { y += step; }};
-    (*i)[GLFW_KEY_A] += { GLFW_REPEAT, [&y, step]() { y -= step; }};
-   
+    input[GLFW_KEY_D] += { GLFW_REPEAT, [&y, step]() { y += step; }};
+    input[GLFW_KEY_A] += { GLFW_REPEAT, [&y, step]() { y -= step; }};
+    input[GLFW_KEY_BACKSPACE] += {GLFW_PRESS, [&x, &y] {x = 0; y=0;}};
  
     glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
