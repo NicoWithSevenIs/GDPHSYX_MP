@@ -78,7 +78,7 @@ int main(void)
     Shader* shader = (*ShaderManager::getInstance())[ShaderNames::MODEL_SHADER];
     CameraManager::initializeCameras(shader);
 
-    RenderParticleController renderparticleController = RenderParticleController(1000);
+    RenderParticleController renderparticleController = RenderParticleController(10000);
 
     World world = World();
 

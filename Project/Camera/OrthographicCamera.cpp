@@ -6,6 +6,7 @@ void OrthographicCamera::configureMatrices(glm::mat4& projection, glm::mat4& vie
     glm::vec3 pos = (glm::vec3)cameraPos;
     glm::vec3 front = (glm::vec3)(cameraPos + cameraFront);
 
+
     view = glm::lookAt(pos, front, (glm::vec3)Vector3::up);
 
     view = glm::translate(view, -pos);

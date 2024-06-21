@@ -9,7 +9,7 @@ void PerspectiveCamera::configureMatrices(glm::mat4& projection, glm::mat4& view
     glm::vec3 pos = (glm::vec3)cameraPos;
     glm::vec3 front = (glm::vec3)(cameraPos + cameraFront);
 
-    view = glm::lookAt(pos, front, (glm::vec3)Vector3::up);
+    view = glm::lookAt(pos, (glm::vec3)Vector3::zero, (glm::vec3)Vector3::up);
 
     view = glm::translate(view, -pos);
     view *= glm::toMat4(glm::quat((glm::vec3)this->rotation));
