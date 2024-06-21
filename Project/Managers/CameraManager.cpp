@@ -34,6 +34,12 @@ void CameraManager::switchToPerspective() {
 	getInstance()->currentCamera = &getInstance()->persp;
 }
 
+void CameraManager::DoOnAllCameras(std::function<void(Camera*)> callback) {
+	for (auto camera : getInstance()->cameras) {
+		callback(camera);
+	}
+}
+
 
 #pragma region Singleton
 

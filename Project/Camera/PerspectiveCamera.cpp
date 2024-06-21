@@ -40,12 +40,3 @@ void PerspectiveCamera::Draw(){
 }
 
 
-Vector3 PerspectiveCamera::getRotation()
-{
-    return this->rotation;
-}
-
-void PerspectiveCamera::setRotation(Vector3 rotation)
-{
-    this->rotation = rotation;
-}

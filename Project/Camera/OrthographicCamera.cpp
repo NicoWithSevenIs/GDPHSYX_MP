@@ -25,6 +25,13 @@ void OrthographicCamera::Draw() {
         (glm::vec3)Vector3::up
     );
 
+    glm::vec3 pos = (glm::vec3)cameraPos;
+
+    viewMatrix = glm::translate(viewMatrix, -pos);
+    viewMatrix *= glm::toMat4(glm::quat((glm::vec3)this->rotation));
+    viewMatrix = glm::translate(viewMatrix, pos);
+
+
     glm::mat4 projectionMatrix = glm::ortho(left, right, bottom, top, znear, zfar);
 
     unsigned int projectionLoc = glGetUniformLocation(this->shader->getShaderProg(), "projection");

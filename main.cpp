@@ -167,7 +167,7 @@ int main(void)
     };
 
 
-
+    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
     while (!glfwWindowShouldClose(window))
     {
@@ -186,20 +186,12 @@ int main(void)
 
             float dT = (float)ms.count() / 1000;
 
-            if (!isPaused) {
+            if (!isPaused)
                 world.Update(dT);
-            }
-           
+            
         } 
         
-        if (typeid(*CameraManager::getMain()) == typeid(PerspectiveCamera)) {
-            PerspectiveCamera* p = (PerspectiveCamera*) CameraManager::getMain();
-            p->setRotation(Vector3(x,y,0));
-            glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-        }
-        else glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
-      
-       
+        CameraManager::DoOnAllCameras([x,y](Camera* camera) { camera->setRotation(Vector3(x, y, 0)); } );
         CameraManager::getMain()->Draw();
         world.Draw();
 

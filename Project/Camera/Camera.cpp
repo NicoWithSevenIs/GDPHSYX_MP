@@ -23,3 +23,13 @@ Vector3 Camera::getFront() {
 void Camera::setFront(Vector3 front) {
 	this->cameraFront = front;
 }
+
+Vector3 Camera::getRotation()
+{
+	return this->rotation;
+}
+
+void Camera::setRotation(Vector3 rotation)
+{
+	this->rotation = rotation;
+}

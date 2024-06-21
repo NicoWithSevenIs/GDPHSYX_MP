@@ -5,6 +5,8 @@
 #include "../Camera/PerspectiveCamera.hpp"
 #include "../../config.hpp"
 #include <vector>
+#include <functional>
+
 namespace managers {
 
 	class CameraManager {
@@ -25,6 +27,8 @@ namespace managers {
 
 			static void switchToOrtho();
 			static void switchToPerspective();
+
+			static void DoOnAllCameras(std::function<void(Camera*)> callback);
 
 		#pragma region Singleton
 
