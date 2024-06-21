@@ -13,20 +13,19 @@ class RenderParticleController {
 	private:
 		int size;
 		int count;
-		float spawnInterval = 0.1f;
+		float spawnInterval;
 		float spawnTicks;
-
+	public:
+		bool triggerSpawn;
 	public:
 		RenderParticleController(int size);
 	public:
-		
-		std::list<RenderParticle*> createRenderParticleBatch();
+
 		RenderParticle* createRenderParticle();
 		void intializeVelocities(RenderParticle* pRenderParticle);
 		void initializeAcceleration(RenderParticle* pRenderParticle);
 		void initializeDirection(RenderParticle* pRenderParticle);
-		void OnActivate(std::list<RenderParticle*> worldParticles);
-
+		
 	public:
 		void tickDown(World* refWorld, float deltaTime);
 
