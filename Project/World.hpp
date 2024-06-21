@@ -28,7 +28,6 @@ class World {
 
 	private:
 		void UpdateParticleList();
-		std::string getRankingText(int rank);
 
 
 };

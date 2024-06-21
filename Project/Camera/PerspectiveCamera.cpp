@@ -15,9 +15,6 @@ void PerspectiveCamera::configureMatrices(glm::mat4& projection, glm::mat4& view
     view *= glm::toMat4(glm::quat((glm::vec3)this->rotation));
    // view = glm::translate(view, pos);
 
-
-
-
     //glm::mat4 projectionMatrix = glm::perspective(glm::radians(60.f), SCREEN_WIDTH / SCREEN_HEIGHT, 1.f, 1000.f);
 
     //https://community.khronos.org/t/pixel-perfect-projection-matrix/61435/2
