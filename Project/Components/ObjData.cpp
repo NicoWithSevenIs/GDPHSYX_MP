@@ -15,8 +15,8 @@ void ObjData::LoadModel(std::string filename) {
         filename.c_str()
     );
 
-    if (!warning.empty())
-        std::cout << "[WARNING] " << warning << std::endl;
+    //if (!warning.empty())
+        //std::cout << "[WARNING] " << warning << std::endl;
 
     if (!error.empty()) {
         std::cout << "[ERROR] " << error << std::endl;

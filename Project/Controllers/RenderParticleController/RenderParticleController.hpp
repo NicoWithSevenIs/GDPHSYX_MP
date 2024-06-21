@@ -28,6 +28,6 @@ class RenderParticleController {
 		void OnActivate(std::list<RenderParticle*> worldParticles);
 
 	public:
-		void tickDown(World* refWorld);
+		void tickDown(World* refWorld, float deltaTime);
 
 };

@@ -149,14 +149,14 @@ void RenderParticleController::OnActivate(std::list<RenderParticle*> worldPartic
 	}
 }
 
-void RenderParticleController::tickDown(World* refWorld) {
+void RenderParticleController::tickDown(World* refWorld, float deltaTime) {
 	if (this->spawnTicks >= this->spawnInterval) {
 		if (this->count != this->size) {
 			refWorld->AddParticle(this->createRenderParticle());
 			this->spawnTicks = 0.0f;
-			this->count += 1.0f;
+			this->count++;
 		}
 	}
-	this->spawnTicks += 0.1f;
+	this->spawnTicks += deltaTime;
 }
 

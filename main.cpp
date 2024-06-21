@@ -175,12 +175,12 @@ int main(void)
 
             if (!isPaused){
                 world.Update(dT);
-                renderparticleController.tickDown(&world);
+                
             }
                 
             
         } 
-        
+        renderparticleController.tickDown(&world, 0.01f);
         CameraManager::DoOnAllCameras([x,y](Camera* camera) { camera->setRotation(Vector3(x, y, 0)); } );
         CameraManager::getMain()->Draw();
         world.Draw();
