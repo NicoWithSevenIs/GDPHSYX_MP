@@ -13,9 +13,10 @@ class RenderParticleController {
 	private:
 		int size;
 		int count;
-		float spawnInterval = 0.01f;
+		float spawnInterval;
 		float spawnTicks;
-
+	public:
+		bool triggerSpawn;
 	public:
 		RenderParticleController(int size);
 	public:

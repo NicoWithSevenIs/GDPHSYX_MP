@@ -177,7 +177,8 @@ int main(void)
 
             if (!isPaused){
                 world.Update(dT);
-                
+                if (renderparticleController.triggerSpawn)
+                    world.AddParticle(renderparticleController.createRenderParticle());
             }
                 
             

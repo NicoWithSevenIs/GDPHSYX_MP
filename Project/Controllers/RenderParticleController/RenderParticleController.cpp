@@ -3,8 +3,9 @@
 RenderParticleController::RenderParticleController(int size) {
 	this->size = size;
 	this->count = 0;
-	this->spawnInterval = 5.0f;
+	this->spawnInterval = 0.05f;
 	this->spawnTicks = 0.0f;
+	this->triggerSpawn = false;
 }
 
 std::list<RenderParticle*> RenderParticleController::createRenderParticleBatch() {
@@ -42,7 +43,6 @@ std::list<RenderParticle*> RenderParticleController::createRenderParticleBatch()
 }
 
 RenderParticle* RenderParticleController::createRenderParticle() {
-
 	Shader* shader = (*ShaderManager::getInstance())[ShaderNames::MODEL_SHADER];
 	Model* pModel = new Model("3D/sphere.obj");
 	Particle* pParticle = new Particle();
@@ -68,6 +68,9 @@ RenderParticle* RenderParticleController::createRenderParticle() {
 
 	this->intializeVelocities(renderParticle);
 	this->initializeAcceleration(renderParticle);
+
+	this->triggerSpawn = false;
+
 	return renderParticle;
 }
 
@@ -152,7 +155,7 @@ void RenderParticleController::OnActivate(std::list<RenderParticle*> worldPartic
 void RenderParticleController::tickDown(World* refWorld, float deltaTime) {
 	if (this->spawnTicks >= this->spawnInterval) {
 		if (this->count != this->size) {
-			refWorld->AddParticle(this->createRenderParticle());
+			this->triggerSpawn = true;
 			this->spawnTicks = 0.0f;
 			this->count++;
 		}
