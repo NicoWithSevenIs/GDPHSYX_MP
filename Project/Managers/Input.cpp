@@ -11,7 +11,7 @@ void Input::mouseCallback(GLFWwindow* window, double xPos, double yPos) {
 
 int Input::returnIntInput() {
 	int input;
-	std::cout << "Enter size Input: " << std::endl;
+	std::cout << "Enter size Input: ";
 	std::cin >> input;
 	return input;
 }
