@@ -6,6 +6,9 @@ class Particle {
 	public:
 		float mass = 5;
 
+		float lifeSpan = 0;
+		float lifeTicks = 0;
+
 	protected:
 		Vector3 accumulatedForce = Vector3::zero;
 		
@@ -14,7 +17,7 @@ class Particle {
 		// 0 nothing left
 		// 1 constant v
 
-		float damping = 0.5f;
+		float damping = 0.9f;
 		bool isDestroyed = false;
 
 	private:
@@ -32,6 +35,7 @@ class Particle {
 
 	public:
 		void Update(float deltaTime);
+		void Instantiate();
 		void Destroy();
 		bool IsDestroyed();
 
@@ -47,4 +51,5 @@ class Particle {
 		Vector3 getPosition();
 		Vector3 getVelocity();
 		Vector3 getInitialVelocity();
+
 };

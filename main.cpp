@@ -28,6 +28,7 @@
 
 
 #include "Project/World.hpp"
+#include "Project/Controllers/RenderParticleController/RenderParticleController.hpp"
 
 #include "config.hpp"
 
@@ -52,6 +53,7 @@ void Shaboomboom(Particle* p, float velocity, float acceleration) {
 int main(void)
 {
     GLFWwindow* window;
+    srand(time(0));
 
     if (!glfwInit())
         return -1;
@@ -76,23 +78,9 @@ int main(void)
     Shader* shader = (*ShaderManager::getInstance())[ShaderNames::MODEL_SHADER];
     CameraManager::initializeCameras(shader);
 
+    RenderParticleController renderparticleController = RenderParticleController(1000);
+
     World world = World();
-
-
-    /* GREEN (NE) */
-    Model* m = new Model("3D/sphere.obj");
-    m->transform.scale = Vector3(10, 10, 10);
-    m->assignShader(shader);
-    m->setColor(Vector3(0, 1, 0));
-
-    Particle* p = new Particle();
-    p->setPosition(Vector3(0,0,0));
-
-    p->mass = 3;
-    p->AddForce(Vector3(-6000,0,0));
-
-
-    world.AddParticle(new RenderParticle("Green", m, p));
 
     //might try to make a time singleton to handle this
 
@@ -173,8 +161,7 @@ int main(void)
     {
  
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-
+        
         curr_time = clock::now();
         auto dur = std::chrono::duration_cast<std::chrono::nanoseconds> (curr_time - prev_time);
         prev_time = curr_time;
@@ -186,8 +173,11 @@ int main(void)
 
             float dT = (float)ms.count() / 1000;
 
-            if (!isPaused)
+            if (!isPaused){
                 world.Update(dT);
+                renderparticleController.tickDown(&world);
+            }
+                
             
         } 
         

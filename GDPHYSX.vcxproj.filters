@@ -79,6 +79,7 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Project\Camera\PerspectiveCamera.hpp">
+    <ClInclude Include="Project\Controllers\RenderParticleController\RenderParticleController.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -149,6 +150,7 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Project\Camera\PerspectiveCamera.cpp">
+    <ClCompile Include="Project\Controllers\RenderParticleController\RenderParticleController.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

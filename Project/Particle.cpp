@@ -16,6 +16,12 @@ void Particle::Update(float deltaTime) {
 	this->UpdateVelocity(deltaTime);
 
 	this->ResetForce();
+
+	if (this->lifeTicks >= this->lifeSpan) {
+		this->Destroy();
+	}
+
+	this->lifeTicks += deltaTime;
 }
 
 void Particle::setPosition(Vector3 position) {
@@ -41,6 +47,10 @@ Vector3 Particle::getVelocity() {
 
 Vector3 Particle::getInitialVelocity() {
 	return this->initialVelocity;
+}
+
+void Particle::Instantiate() {
+	this->isDestroyed = false;
 }
 
 void Particle::Destroy() {
