@@ -51,7 +51,9 @@ void Shaboomboom(Particle* p, float velocity, float acceleration) {
 }
 
 int main(void)
-{
+{   
+    int sizeInput = Input::returnIntInput();
+
     GLFWwindow* window;
     srand(time(0));
 
@@ -78,7 +80,7 @@ int main(void)
     Shader* shader = (*ShaderManager::getInstance())[ShaderNames::MODEL_SHADER];
     CameraManager::initializeCameras(shader);
 
-    RenderParticleController renderparticleController = RenderParticleController(1000);
+    RenderParticleController renderparticleController = RenderParticleController(sizeInput);
 
     World world = World();
 
