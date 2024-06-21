@@ -74,11 +74,11 @@ RenderParticle* RenderParticleController::createRenderParticle() {
 void RenderParticleController::intializeVelocities(RenderParticle* pRenderParticle) {
 	float vX_ub = 140.0f;
 	float vY_ub = 240.0f;
-	float vZ_ub = 10.0f;
+	float vZ_ub = 300.0f;
 
 	float vX_lb = -140.0f;
 	float vY_lb = 50.0f;
-	float vZ_lb = -10.0f;
+	float vZ_lb = -300.0f;
 
 	float vX_random = static_cast<float>(rand()) / RAND_MAX;
 	float vY_random = static_cast<float>(rand()) / RAND_MAX;
@@ -95,13 +95,13 @@ void RenderParticleController::intializeVelocities(RenderParticle* pRenderPartic
 }	
 
 void RenderParticleController::initializeAcceleration(RenderParticle* pRenderParticle) {
-	float vX_ub = 10.0f;
-	float vY_ub = 15.0f;
-	float vZ_ub = 10.0f;
+	float vX_ub = 15.0f;
+	float vY_ub = 20.0f;
+	float vZ_ub = 59.0f;
 
-	float vX_lb = 3.0f;
-	float vY_lb = 5.0f;
-	float vZ_lb = 3.0f;
+	float vX_lb = 10.0f;
+	float vY_lb = 15.0f;
+	float vZ_lb = 45.0f;
 
 	float vX_random = static_cast<float>(rand()) / RAND_MAX;
 	float vY_random = static_cast<float>(rand()) / RAND_MAX;

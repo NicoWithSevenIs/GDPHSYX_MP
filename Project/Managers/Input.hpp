@@ -6,6 +6,7 @@
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
 
+#include "iostream"
 
 struct Key_Event {
 	int invoke_type;
@@ -50,8 +51,8 @@ class Input
 		
 		static void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods);
 		static void mouseCallback(GLFWwindow* window, double xPos, double yPos);
-
-
+		static int returnIntInput();
+		
 	#pragma region Singleton
 	private:
 		static Input* instance;
