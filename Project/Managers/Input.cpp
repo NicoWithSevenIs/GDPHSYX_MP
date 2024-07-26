@@ -13,14 +13,9 @@ template<typename T>
 T Input::getLine(std::string message)
 {
 	T value;
-	std::string line;
 
 	std::cout << message << ": ";
-	std::getline(std::cin, line);
-
-	std::istringstream stream(line);
-
-	stream >> value;
+	std::cin >> value;
 
 	return value;
 }
