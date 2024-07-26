@@ -9,13 +9,6 @@ void Input::mouseCallback(GLFWwindow* window, double xPos, double yPos) {
 		i(xPos,yPos);	
 }
 
-int Input::returnIntInput() {
-	int input;
-	std::cout << "Enter size Input: ";
-	std::cin >> input;
-	return input;
-}
-
 #pragma region Singleton
 
 Input* Input::instance = NULL;

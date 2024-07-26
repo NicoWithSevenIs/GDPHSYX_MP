@@ -25,10 +25,8 @@
 #include "Project/Particle.hpp"
 #include "Project/Model.h"
 
-
-
 #include "Project/World.hpp"
-#include "Project/Controllers/RenderParticleController/RenderParticleController.hpp"
+#include "Project/ParticleContact.hpp"
 
 #include "config.hpp"
 
@@ -38,7 +36,6 @@ using namespace std::chrono_literals;
 
 int main(void)
 {   
-    int sizeInput = Input::returnIntInput();
 
     GLFWwindow* window;
     srand(time(0));
@@ -46,7 +43,7 @@ int main(void)
     if (!glfwInit())
         return -1;
 
-    window = glfwCreateWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Group5_Tolentino&Ong_Engine1_Phase1", NULL, NULL);
+    window = glfwCreateWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Nico", NULL, NULL);
     if (!window)
     {
         glfwTerminate();
@@ -66,10 +63,50 @@ int main(void)
     Shader* shader = (*ShaderManager::getInstance())[ShaderNames::MODEL_SHADER];
     CameraManager::initializeCameras(shader);
 
-    // RenderParticleController is the class that handles the spawning of the particles //
-    RenderParticleController renderparticleController = RenderParticleController(sizeInput);
+
 
     World world = World();
+
+    Model* m = new Model("3D/sphere.obj");
+    m->assignShader(shader);
+    m->transform.scale = Vector3::one * 50.f;
+
+    Particle *p = new Particle();
+    p->lifeSpan = 100;
+    p->position = Vector3::right * 50.f;
+
+    m->setColor(Vector3(255,255,255));
+
+    RenderParticle p1 = RenderParticle("p1", m, p);
+    p1.particle->mass = 5;
+
+    world.AddParticle(&p1);
+
+
+
+    Model* m2 = new Model(*m);
+    m2->setColor(Vector3(255, 255, 0));
+
+    Particle* pp = new Particle(*p);
+    pp->position = Vector3::right * 150;
+
+    RenderParticle p2 = RenderParticle("p2", m2, pp);
+    p2.particle->mass = 5;
+
+    world.AddParticle(&p2);
+
+    ParticleContact contact = ParticleContact();
+    contact.particles[0] = p;
+    contact.particles[1] = pp;
+
+    contact.contactNormal = p->position - pp->position;
+    contact.contactNormal.Normalize();
+
+    contact.restitution = 1;
+
+    p->velocity = Vector3(15, 15, 0);
+    pp->velocity = Vector3(-30,5,0);
+
 
     //might try to make a time singleton to handle this
 
@@ -83,6 +120,7 @@ int main(void)
 
     bool isPaused = false;
 
+  
     Input& input = *Input::getInstance();
 
     input[GLFW_KEY_SPACE] += { GLFW_PRESS, [&isPaused]() {isPaused = !isPaused;} };
@@ -100,7 +138,7 @@ int main(void)
     input[GLFW_KEY_D] += { GLFW_REPEAT, [&y, step]() { y += step; }};
     input[GLFW_KEY_A] += { GLFW_REPEAT, [&y, step]() { y -= step; }};
     input[GLFW_KEY_BACKSPACE] += {GLFW_PRESS, [&x, &y] {x = 0; y=0;}};
- 
+
     glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
     while (!glfwWindowShouldClose(window))
@@ -121,15 +159,12 @@ int main(void)
 
             if (!isPaused){
                 world.Update(dT);
+                contact.resolve(dT);
             }
                 
             
         } 
-
-        if (!isPaused && renderparticleController.triggerSpawn)
-            world.AddParticle(renderparticleController.createRenderParticle());
-
-        renderparticleController.tickDown(&world, 0.01f);
+       
         CameraManager::DoOnAllCameras([x,y](Camera* camera) { camera->setRotation(Vector3(x, y, 0)); } );
         CameraManager::getMain()->Draw();
         world.Draw();

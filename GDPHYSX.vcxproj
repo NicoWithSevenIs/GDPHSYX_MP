@@ -140,9 +140,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="config.hpp" />
+    <ClInclude Include="Project\ParticleContact.hpp" />
     <ClInclude Include="Project\Camera\PerspectiveCamera.hpp" />
     <ClInclude Include="Project\Managers\Input.hpp" />
-    <ClInclude Include="Project\Controllers\RenderParticleController\RenderParticleController.hpp" />
     <ClInclude Include="Project\Forces\DragForceGenerator.hpp" />
     <ClInclude Include="Project\Forces\GravityForceGenerator.hpp" />
     <ClInclude Include="Project\Forces\ForceRegistry.hpp" />
@@ -160,8 +160,10 @@
     <ClInclude Include="Project\RenderParticle.hpp" />
     <ClInclude Include="Project\Vector3.hpp" />
     <ClInclude Include="Project\World.hpp" />
+    <ClInclude Include="Project\Utilities\Singleton.hpp" />
     <ClInclude Include="stb_image.h" />
     <ClInclude Include="tiny_obj_loader.h" />
+    <ClInclude Include="Project\Workspace.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include=".gitignore" />
@@ -169,9 +171,9 @@
     <None Include="Project\Model\Shaders\Temp.vert" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Project\ParticleContact.cpp" />
     <ClCompile Include="Project\Camera\PerspectiveCamera.cpp" />
     <ClCompile Include="Project\Managers\Input.cpp" />
-    <ClCompile Include="Project\Controllers\RenderParticleController\RenderParticleController.cpp" />
     <ClCompile Include="Project\Forces\DragForceGenerator.cpp" />
     <ClCompile Include="Project\Forces\GravityForceGenerator.cpp" />
     <ClCompile Include="Project\Forces\ForceRegistry.cpp" />
@@ -187,10 +189,12 @@
     <ClCompile Include="Project\Managers\CameraManager.cpp" />
     <ClCompile Include="Project\Managers\ShaderManager.cpp" />
     <ClCompile Include="Project\RenderParticle.cpp" />
+    <ClCompile Include="Project\Utilities\Singleton.cpp" />
     <ClCompile Include="Project\World.cpp" />
     <ClCompile Include="Project\Model.cpp" />
     <ClCompile Include="Project\Particle.cpp" />
     <ClCompile Include="Project\Vector3.cpp" />
+    <ClCompile Include="Project\Workspace.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

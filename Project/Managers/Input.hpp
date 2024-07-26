@@ -50,7 +50,17 @@ class Input
 		
 		static void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods);
 		static void mouseCallback(GLFWwindow* window, double xPos, double yPos);
-		static int returnIntInput();
+
+
+	template <typename T>
+	inline T getInput(std::string message) {
+		T value;
+
+		std::cout << message << ": ";
+		std::cin >> value;
+
+		return value;
+	}
 		
 	#pragma region Singleton
 	private:
@@ -64,7 +74,7 @@ class Input
 	public:
 		static Input* getInstance();
 
-		//static void mouseCallback(GLFWwindow* window, double xpos, double ypos);
+	
 	#pragma endregion
 
 };

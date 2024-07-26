@@ -6,7 +6,7 @@ void RenderParticle::Draw() {
 		return;
 	}
 			
-	this->model->transform.translation = this->particle->getPosition();
+	this->model->transform.translation = this->particle->position;
 	this->model->Draw();
 }
 

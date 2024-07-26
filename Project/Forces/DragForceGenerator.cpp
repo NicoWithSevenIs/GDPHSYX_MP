@@ -1,8 +1,6 @@
 #include "DragForceGenerator.hpp"
 
-DragForceGenerator::DragForceGenerator()
-{
-}
+DragForceGenerator::DragForceGenerator(){}
 
 DragForceGenerator::DragForceGenerator(float _k1, float _k2): k1(_k1), k2(_k2) {}
 
@@ -10,7 +8,7 @@ void DragForceGenerator::UpdateForce(Particle* p, float deltaTime)
 {
 	
 	Vector3 force = Vector3::zero;
-	Vector3 currV = p->getVelocity();
+	Vector3 currV = p->velocity;
 
 	float mag = currV.Magnitude();
 

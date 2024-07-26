@@ -3,7 +3,6 @@
 #include "RenderParticle.hpp"
 #include "Forces/ForceRegistry.hpp"
 #include "Forces/GravityForceGenerator.hpp"
-#include "Controllers/RenderParticleController/RenderParticleController.hpp"
 #include <list>
 #include <functional>
 #include <iomanip>

@@ -1,157 +1,63 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
+    <ClCompile Include="Project\Camera\PerspectiveCamera.cpp" />
+    <ClCompile Include="Project\Managers\Input.cpp" />
+    <ClCompile Include="Project\Controllers\RenderParticleController\RenderParticleController.cpp" />
+    <ClCompile Include="Project\Forces\DragForceGenerator.cpp" />
+    <ClCompile Include="Project\Forces\GravityForceGenerator.cpp" />
+    <ClCompile Include="Project\Forces\ForceRegistry.cpp" />
+    <ClCompile Include="Project\Forces\ForceGenerator.cpp" />
+    <ClCompile Include="glad.c" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="Project\Camera\Camera.cpp" />
+    <ClCompile Include="Project\Camera\OrthographicCamera.cpp" />
+    <ClCompile Include="Project\Components\ObjData.cpp" />
+    <ClCompile Include="Project\Components\Shader.cpp" />
+    <ClCompile Include="Project\Components\ShaderNames.cpp" />
+    <ClCompile Include="Project\Components\Transform.cpp" />
+    <ClCompile Include="Project\Managers\CameraManager.cpp" />
+    <ClCompile Include="Project\Managers\ShaderManager.cpp" />
+    <ClCompile Include="Project\RenderParticle.cpp" />
+    <ClCompile Include="Project\World.cpp" />
+    <ClCompile Include="Project\Model.cpp" />
+    <ClCompile Include="Project\Particle.cpp" />
+    <ClCompile Include="Project\Vector3.cpp" />
+    <ClCompile Include="Project\Workspace.cpp" />
+    <ClCompile Include="Project\Utilities\Singleton.cpp" />
+    <ClCompile Include="Project\ParticleContact.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="tiny_obj_loader.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="stb_image.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Vector3.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Camera\Camera.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Managers\CameraManager.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Managers\ShaderManager.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Camera\OrthographicCamera.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Model.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Components\Shader.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Components\ShaderNames.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="config.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Particle.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\World.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Components\Transform.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Components\ObjData.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\RenderParticle.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Forces\ForceGenerator.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Forces\ForceRegistry.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Forces\GravityForceGenerator.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Forces\DragForceGenerator.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Managers\Input.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Camera\PerspectiveCamera.hpp">
-    <ClInclude Include="Project\Controllers\RenderParticleController\RenderParticleController.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
+    <ClInclude Include="config.hpp" />
+    <ClInclude Include="Project\Camera\PerspectiveCamera.hpp" />
+    <ClInclude Include="Project\Managers\Input.hpp" />
+    <ClInclude Include="Project\Controllers\RenderParticleController\RenderParticleController.hpp" />
+    <ClInclude Include="Project\Forces\DragForceGenerator.hpp" />
+    <ClInclude Include="Project\Forces\GravityForceGenerator.hpp" />
+    <ClInclude Include="Project\Forces\ForceRegistry.hpp" />
+    <ClInclude Include="Project\Forces\ForceGenerator.hpp" />
+    <ClInclude Include="Project\Camera\Camera.hpp" />
+    <ClInclude Include="Project\Camera\OrthographicCamera.hpp" />
+    <ClInclude Include="Project\Components\ObjData.hpp" />
+    <ClInclude Include="Project\Components\Shader.hpp" />
+    <ClInclude Include="Project\Components\ShaderNames.hpp" />
+    <ClInclude Include="Project\Components\Transform.hpp" />
+    <ClInclude Include="Project\Managers\CameraManager.hpp" />
+    <ClInclude Include="Project\Managers\ShaderManager.hpp" />
+    <ClInclude Include="Project\Model.h" />
+    <ClInclude Include="Project\Particle.hpp" />
+    <ClInclude Include="Project\RenderParticle.hpp" />
+    <ClInclude Include="Project\Vector3.hpp" />
+    <ClInclude Include="Project\World.hpp" />
+    <ClInclude Include="stb_image.h" />
+    <ClInclude Include="tiny_obj_loader.h" />
+    <ClInclude Include="Project\Workspace.hpp" />
+    <ClInclude Include="Project\Utilities\Singleton.hpp" />
+    <ClInclude Include="Project\ParticleContact.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include=".gitignore" />
     <None Include="Project\Model\Shaders\Temp.frag" />
     <None Include="Project\Model\Shaders\Temp.vert" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="glad.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Vector3.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Camera\Camera.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Managers\CameraManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Managers\ShaderManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Camera\OrthographicCamera.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Model.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Components\Shader.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Components\ShaderNames.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Particle.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\World.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Components\Transform.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Components\ObjData.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\RenderParticle.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Forces\ForceGenerator.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Forces\ForceRegistry.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Forces\GravityForceGenerator.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Forces\DragForceGenerator.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Managers\Input.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Camera\PerspectiveCamera.cpp">
-    <ClCompile Include="Project\Controllers\RenderParticleController\RenderParticleController.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
 </Project>

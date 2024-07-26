@@ -9,6 +9,12 @@ class Particle {
 		float lifeSpan = 0;
 		float lifeTicks = 0;
 
+		Vector3 position;
+		Vector3 velocity;
+		Vector3 acceleration;
+
+		Vector3 initialVelocity;
+
 	protected:
 		Vector3 accumulatedForce = Vector3::zero;
 		
@@ -20,13 +26,7 @@ class Particle {
 		float damping = 0.9f;
 		bool isDestroyed = false;
 
-	private:
-		Vector3 position;
-		Vector3 velocity;
-		Vector3 acceleration;
-
-		Vector3 initialVelocity;
-
+	
 	protected:
 		void UpdatePosition(float deltaTime);
 		void UpdateVelocity(float deltaTime);
@@ -47,9 +47,5 @@ class Particle {
 		void setVelocity(Vector3 velocity);
 		void setAcceleration(Vector3 acceleration);
 
-	public:
-		Vector3 getPosition();
-		Vector3 getVelocity();
-		Vector3 getInitialVelocity();
 
 };

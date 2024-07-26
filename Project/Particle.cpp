@@ -37,18 +37,6 @@ void Particle::setAcceleration(Vector3 acceleration) {
 	this->acceleration = acceleration;
 }
 
-Vector3 Particle::getPosition() {
-	return this->position;
-}
-
-Vector3 Particle::getVelocity() {
-	return this->velocity;
-}
-
-Vector3 Particle::getInitialVelocity() {
-	return this->initialVelocity;
-}
-
 void Particle::Instantiate() {
 	this->isDestroyed = false;
 }

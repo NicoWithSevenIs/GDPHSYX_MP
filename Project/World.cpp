@@ -23,7 +23,7 @@ void World::Draw() {
 void World::AddParticle(RenderParticle* p) {
 	this->particleList.push_back(p);
 
-	forceRegistry.Add(p->particle, &gravity);
+	//forceRegistry.Add(p->particle, &gravity);
 }
 
 void World::AddParticleBatch(std::list<RenderParticle*> particleBatch) {
