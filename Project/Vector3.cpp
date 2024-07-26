@@ -16,6 +16,11 @@ float Vector3::Magnitude() const {
 	return sqrt(x*x + y*y + z*z);
 }
 
+float Vector3::SquareMagnitude() const
+{
+	return x * x + y * y + z * z;
+}
+
 void Vector3::Normalize() {
 	(*this) *= 1/this->Magnitude();
 }

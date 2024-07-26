@@ -51,6 +51,7 @@ class Vector3 {
 
 		static Vector3 Lerp(const float t, const Vector3 start, const Vector3 end);
 
+
 	public:
 		explicit operator glm::vec3() const{
 			return glm::vec3(x,y,z);
@@ -92,6 +93,10 @@ class Vector3 {
 			this->z *= scalar;
 		}
 
+		inline friend Vector3 operator / (const float scalar, const Vector3& v) {
+			return Vector3(scalar /v.x, scalar /v.y, scalar/v.z);
+		}
+
 		inline Vector3 operator / (const float scalar) const {
 			return Vector3((*this)) * (1/scalar);
 		}
@@ -117,6 +122,7 @@ class Vector3 {
 
 
 		float Magnitude() const;
+		float SquareMagnitude() const;
 		void Normalize();	
 
 		//printing

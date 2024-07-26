@@ -6,7 +6,9 @@
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
 
-#include "iostream"
+#include <iostream>
+#include <string>
+#include <sstream>
 
 struct Key_Event {
 	int invoke_type;
@@ -50,17 +52,6 @@ class Input
 		
 		static void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods);
 		static void mouseCallback(GLFWwindow* window, double xPos, double yPos);
-
-
-	template <typename T>
-	inline T getInput(std::string message) {
-		T value;
-
-		std::cout << message << ": ";
-		std::cin >> value;
-
-		return value;
-	}
 		
 	#pragma region Singleton
 	private:
@@ -74,7 +65,9 @@ class Input
 	public:
 		static Input* getInstance();
 
-	
+		template <typename T>
+		static T getLine(std::string message = "Input");
+
 	#pragma endregion
 
 };

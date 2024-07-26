@@ -3,7 +3,6 @@
   <ItemGroup>
     <ClCompile Include="Project\Camera\PerspectiveCamera.cpp" />
     <ClCompile Include="Project\Managers\Input.cpp" />
-    <ClCompile Include="Project\Controllers\RenderParticleController\RenderParticleController.cpp" />
     <ClCompile Include="Project\Forces\DragForceGenerator.cpp" />
     <ClCompile Include="Project\Forces\GravityForceGenerator.cpp" />
     <ClCompile Include="Project\Forces\ForceRegistry.cpp" />
@@ -26,12 +25,19 @@
     <ClCompile Include="Project\Workspace.cpp" />
     <ClCompile Include="Project\Utilities\Singleton.cpp" />
     <ClCompile Include="Project\ParticleContact.cpp" />
+    <ClCompile Include="Project\Springs\ParticleSpring.cpp" />
+    <ClCompile Include="Project\Springs\AnchoredSpring.cpp" />
+    <ClCompile Include="Project\Link\ParticleLink.cpp" />
+    <ClCompile Include="Project\Link\Rod.cpp" />
+    <ClCompile Include="Project\ContactResolver.cpp" />
+    <ClCompile Include="Project\Utilities\RenderLine.cpp" />
+    <ClCompile Include="Project\Link\BungeeLink.cpp" />
+    <ClCompile Include="Project\Link\ChainLink.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="config.hpp" />
     <ClInclude Include="Project\Camera\PerspectiveCamera.hpp" />
     <ClInclude Include="Project\Managers\Input.hpp" />
-    <ClInclude Include="Project\Controllers\RenderParticleController\RenderParticleController.hpp" />
     <ClInclude Include="Project\Forces\DragForceGenerator.hpp" />
     <ClInclude Include="Project\Forces\GravityForceGenerator.hpp" />
     <ClInclude Include="Project\Forces\ForceRegistry.hpp" />
@@ -54,6 +60,14 @@
     <ClInclude Include="Project\Workspace.hpp" />
     <ClInclude Include="Project\Utilities\Singleton.hpp" />
     <ClInclude Include="Project\ParticleContact.hpp" />
+    <ClInclude Include="Project\Springs\ParticleSpring.hpp" />
+    <ClInclude Include="Project\Springs\AnchoredSpring.hpp" />
+    <ClInclude Include="Project\Link\ParticleLink.hpp" />
+    <ClInclude Include="Project\Link\Rod.hpp" />
+    <ClInclude Include="Project\ContactResolver.hpp" />
+    <ClInclude Include="Project\Utilities\RenderLine.hpp" />
+    <ClInclude Include="Project\Link\BungeeLink.hpp" />
+    <ClInclude Include="Project\Link\ChainLink.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include=".gitignore" />

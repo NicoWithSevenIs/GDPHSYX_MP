@@ -9,6 +9,23 @@ void Input::mouseCallback(GLFWwindow* window, double xPos, double yPos) {
 		i(xPos,yPos);	
 }
 
+template<typename T>
+T Input::getLine(std::string message)
+{
+	T value;
+	std::string line;
+
+	std::cout << message << ": ";
+	std::getline(std::cin, line);
+
+	std::istringstream stream(line);
+
+	stream >> value;
+
+	return value;
+}
+
+
 #pragma region Singleton
 
 Input* Input::instance = NULL;

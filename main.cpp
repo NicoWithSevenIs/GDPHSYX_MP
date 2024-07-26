@@ -28,11 +28,20 @@
 #include "Project/World.hpp"
 #include "Project/ParticleContact.hpp"
 
+#include "Project/Springs/AnchoredSpring.hpp"
+#include "Project/Springs/ParticleSpring.hpp"
+
+#include "Project/Utilities/RenderLine.hpp"
 #include "config.hpp"
+
+#include "Project/Link/Rod.hpp"
+
 
 
 using namespace managers;
 using namespace std::chrono_literals;
+
+
 
 int main(void)
 {   
@@ -43,7 +52,7 @@ int main(void)
     if (!glfwInit())
         return -1;
 
-    window = glfwCreateWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Nico", NULL, NULL);
+    window = glfwCreateWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Quiz John Enrico Tolentino", NULL, NULL);
     if (!window)
     {
         glfwTerminate();
@@ -69,44 +78,46 @@ int main(void)
 
     Model* m = new Model("3D/sphere.obj");
     m->assignShader(shader);
-    m->transform.scale = Vector3::one * 50.f;
+    m->transform.scale = Vector3::one * 30.f;
 
     Particle *p = new Particle();
     p->lifeSpan = 100;
-    p->position = Vector3::right * 50.f;
+  
 
-    m->setColor(Vector3(255,255,255));
+    m->setColor(Vector3(0.6f,0,0));
 
-    RenderParticle p1 = RenderParticle("p1", m, p);
-    p1.particle->mass = 5;
+    p->radius = 20;
+    RenderParticle* p1 = new RenderParticle("p1", m, p);
+    p1->particle->mass = 5;
 
-    world.AddParticle(&p1);
+    world.AddParticle(p1);
 
-
-
+  
     Model* m2 = new Model(*m);
-    m2->setColor(Vector3(255, 255, 0));
+    m2->setColor(Vector3(0, 0, 0.6f));
 
     Particle* pp = new Particle(*p);
-    pp->position = Vector3::right * 150;
+    pp->position = (Vector3::up + Vector3::right) * 100;
+    pp->radius = 50;
+    
+    RenderParticle* p2 = new RenderParticle("p2", m2, pp);
+    p2->particle->mass = 50;
 
-    RenderParticle p2 = RenderParticle("p2", m2, pp);
-    p2.particle->mass = 5;
+    world.AddParticle(p2);
 
-    world.AddParticle(&p2);
+    /*
 
-    ParticleContact contact = ParticleContact();
-    contact.particles[0] = p;
-    contact.particles[1] = pp;
+    ParticleSpring pSpring = ParticleSpring(pp, 5.f, 1.f);
 
-    contact.contactNormal = p->position - pp->position;
-    contact.contactNormal.Normalize();
+    world.forceRegistry.Add(p, &pSpring);
 
-    contact.restitution = 1;
+    ParticleSpring pSpring2 = ParticleSpring(p, 5.f, 1.f);
 
-    p->velocity = Vector3(15, 15, 0);
-    pp->velocity = Vector3(-30,5,0);
+    world.forceRegistry.Add(pp, &pSpring2);
 
+    */
+
+  
 
     //might try to make a time singleton to handle this
 
@@ -118,9 +129,9 @@ int main(void)
 
     std::chrono::nanoseconds curr_ns(0);
 
-    bool isPaused = false;
+    #pragma region inputs
 
-  
+    bool isPaused = false;
     Input& input = *Input::getInstance();
 
     input[GLFW_KEY_SPACE] += { GLFW_PRESS, [&isPaused]() {isPaused = !isPaused;} };
@@ -141,6 +152,8 @@ int main(void)
 
     glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
+    #pragma endregion
+
     while (!glfwWindowShouldClose(window))
     {
  
@@ -159,15 +172,19 @@ int main(void)
 
             if (!isPaused){
                 world.Update(dT);
-                contact.resolve(dT);
+                //contact.resolve(dT);
             }
                 
             
         } 
-       
-        CameraManager::DoOnAllCameras([x,y](Camera* camera) { camera->setRotation(Vector3(x, y, 0)); } );
-        CameraManager::getMain()->Draw();
+      
+
+
         world.Draw();
+
+        CameraManager::DoOnAllCameras([x, y](Camera* camera) { camera->setRotation(Vector3(x, y, 0)); });
+        CameraManager::getMain()->Draw();
+
 
         glfwSwapBuffers(window);
         glfwPollEvents();

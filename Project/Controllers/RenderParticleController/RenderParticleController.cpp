@@ -37,13 +37,6 @@ RenderParticle* RenderParticleController::createRenderParticle() {
 
 	renderParticle->model->transform.scale = Vector3(radius, radius, radius);
 
-	// Randomization for the velocities and accelerations //
-	// values for upperbounds and lowerbounds are pre-defined // 
-	this->intializeVelocities(renderParticle);
-	this->initializeAcceleration(renderParticle);
-	renderParticle->particle->AddForce(Vector3(0, 9000, 0));
-
-	this->triggerSpawn = false;
 
 	return renderParticle;
 }
