@@ -22,4 +22,6 @@ public:
 	void testPrint();
 	void createCable();
 
+	int setXOffset(int i);
+
 };

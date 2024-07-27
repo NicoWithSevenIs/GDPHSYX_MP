@@ -42,6 +42,22 @@ using namespace managers;
 using namespace std::chrono_literals;
 
 void setCableCreatorParticles(Model* m, World* world, CableCreator* creator) {
+    m->transform.scale = Vector3::one * creator->particleRadius;
+    RenderParticle* p1 = new RenderParticle("p1", m, creator->particles[0]);
+    world->AddParticle(p1);
+
+    RenderParticle* p2 = new RenderParticle("p2", m, creator->particles[1]);
+    world->AddParticle(p2);
+
+    RenderParticle* p3 = new RenderParticle("p3", m, creator->particles[2]);
+    world->AddParticle(p3);
+
+    RenderParticle* p4 = new RenderParticle("p4", m, creator->particles[3]);
+    world->AddParticle(p4);
+
+    RenderParticle* p5 = new RenderParticle("p5", m, creator->particles[4]);
+    world->AddParticle(p5);
+     
 
 }
 
@@ -78,7 +94,24 @@ int main(void)
 
     Model* m = new Model("3D/sphere.obj");
     m->assignShader(shader);
-        
+    m->setColor(Vector3(1.0f, 0.0f, 0.0f));
+
+    //Model* m2 = new Model("3D/sphere.obj");
+    //m2->assignShader(shader);
+    //m2->transform.scale = Vector3::one * 30.f;
+
+    //Particle* pp = new Particle();
+    //pp->lifeSpan = 0;
+
+
+    //m->setColor(Vector3(0.0f, 1, 0));
+
+    //pp->radius = 20;
+    //RenderParticle* rp = new RenderParticle("p1", m, pp);
+    //rp->particle->mass = 5;
+
+    //world.AddParticle(rp);
+
     CableCreator* creator = new CableCreator();
     
     //might try to make a time singleton to handle this
@@ -97,6 +130,10 @@ int main(void)
     Input& input = *Input::getInstance();
     input.askCableInput(creator);
     creator->testPrint();
+
+    creator->createCable();
+    setCableCreatorParticles(m, &world, creator);
+
 
     input[GLFW_KEY_SPACE] += { GLFW_PRESS, [&isPaused]() {isPaused = !isPaused;} };
     input[GLFW_KEY_1] += { GLFW_PRESS, []() { CameraManager::switchToOrtho(); }};
