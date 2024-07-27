@@ -36,12 +36,14 @@
 
 #include "Project/Link/Rod.hpp"
 
-
+#include "Project/Cable/CableCreator.hpp"
 
 using namespace managers;
 using namespace std::chrono_literals;
 
+void setCableCreatorParticles(Model* m, World* world, CableCreator* creator) {
 
+}
 
 int main(void)
 {   
@@ -72,53 +74,13 @@ int main(void)
     Shader* shader = (*ShaderManager::getInstance())[ShaderNames::MODEL_SHADER];
     CameraManager::initializeCameras(shader);
 
-
-
     World world = World();
 
     Model* m = new Model("3D/sphere.obj");
     m->assignShader(shader);
-    m->transform.scale = Vector3::one * 30.f;
-
-    Particle *p = new Particle();
-    p->lifeSpan = 100;
-  
-
-    m->setColor(Vector3(0.6f,0,0));
-
-    p->radius = 20;
-    RenderParticle* p1 = new RenderParticle("p1", m, p);
-    p1->particle->mass = 5;
-
-    world.AddParticle(p1);
-
-  
-    Model* m2 = new Model(*m);
-    m2->setColor(Vector3(0, 0, 0.6f));
-
-    Particle* pp = new Particle(*p);
-    pp->position = (Vector3::up + Vector3::right) * 100;
-    pp->radius = 50;
+        
+    CableCreator* creator = new CableCreator();
     
-    RenderParticle* p2 = new RenderParticle("p2", m2, pp);
-    p2->particle->mass = 50;
-
-    world.AddParticle(p2);
-
-    /*
-
-    ParticleSpring pSpring = ParticleSpring(pp, 5.f, 1.f);
-
-    world.forceRegistry.Add(p, &pSpring);
-
-    ParticleSpring pSpring2 = ParticleSpring(p, 5.f, 1.f);
-
-    world.forceRegistry.Add(pp, &pSpring2);
-
-    */
-
-  
-
     //might try to make a time singleton to handle this
 
     constexpr std::chrono::nanoseconds timestep(16ms);
@@ -133,6 +95,8 @@ int main(void)
 
     bool isPaused = false;
     Input& input = *Input::getInstance();
+    input.askCableInput(creator);
+    creator->testPrint();
 
     input[GLFW_KEY_SPACE] += { GLFW_PRESS, [&isPaused]() {isPaused = !isPaused;} };
     input[GLFW_KEY_1] += { GLFW_PRESS, []() { CameraManager::switchToOrtho(); }};
@@ -178,8 +142,6 @@ int main(void)
             
         } 
       
-
-
         world.Draw();
 
         CameraManager::DoOnAllCameras([x, y](Camera* camera) { camera->setRotation(Vector3(x, y, 0)); });
