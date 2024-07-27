@@ -58,7 +58,17 @@ void setCableCreatorParticles(Model* m, World* world, CableCreator* creator) {
     RenderParticle* p5 = new RenderParticle("p5", m, creator->particles[4]);
     world->AddParticle(p5);
      
+    world->forceRegistry.Add(creator->particles[0], creator->anchoredSprings[0]);
+    world->forceRegistry.Add(creator->particles[1], creator->anchoredSprings[1]);
+    world->forceRegistry.Add(creator->particles[2], creator->anchoredSprings[2]);
+    world->forceRegistry.Add(creator->particles[3], creator->anchoredSprings[3]);
+    world->forceRegistry.Add(creator->particles[4], creator->anchoredSprings[4]);
 
+    std::cout << "anchoredSpring 0 x: " << creator->anchoredSprings[0]->anchorPoint.x << std::endl;
+    std::cout << "anchoredSpring 1 x: " << creator->anchoredSprings[1]->anchorPoint.x << std::endl;
+    std::cout << "anchoredSpring 2 x: " << creator->anchoredSprings[2]->anchorPoint.x << std::endl;
+    std::cout << "anchoredSpring 3 x: " << creator->anchoredSprings[3]->anchorPoint.x << std::endl;
+    std::cout << "anchoredSpring 4 x: " << creator->anchoredSprings[4]->anchorPoint.x << std::endl;
 }
 
 int main(void)

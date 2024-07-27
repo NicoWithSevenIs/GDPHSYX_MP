@@ -23,10 +23,9 @@ void CableCreator::createCable() {
 		this->particles.push_back(particle);
 	}
 
-	for (int i = 0; i < this->particles.size(); i++) {
-		Particle* p = this->particles[i];		
+	for (int i = 0; i < this->particles.size(); i++) {	
 		int x_offset = this->setXOffset(i);
-		AnchoredSpring* as = new AnchoredSpring(Vector3(x_offset, this->cableLength, 0), 5, this->cableLength - 50.0f);
+		AnchoredSpring* as = new AnchoredSpring(Vector3(x_offset, this->cableLength, 0), 3, this->cableLength - 50.0f);
 		this->anchoredSprings.push_back(as);
 	}	
 }
@@ -38,16 +37,16 @@ int CableCreator::setXOffset(int i) {
 			x_offset = 0;
 			break;
 		case 1:
-			x_offset = 0 - this->particleGap;
+			x_offset = 0 - ((this->particleRadius * 2) + this->particleGap);
 			break;
 		case 2:
-			x_offset = 0 + this->particleGap;
+			x_offset = 0 + ((this->particleRadius * 2) + this->particleGap);
 			break;
 		case 3:
-			x_offset = 0 - (this->particleGap * 2);
+			x_offset = 0 - ((this->particleRadius * 3) +  (this->particleGap * 2));
 			break;
 		case 4:
-			x_offset = 0 + (this->particleGap * 2);
+			x_offset = 0 + ((this->particleRadius * 3) + (this->particleGap * 2));
 			break;
 	}
 	return x_offset;
