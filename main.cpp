@@ -67,7 +67,7 @@ void setCableCreatorParticles(Model* m, World* world, CableCreator* creator) {
     world->forceRegistry.Add(creator->particles[3], creator->anchoredSprings[3]);
     world->forceRegistry.Add(creator->particles[4], creator->anchoredSprings[4]);
 
-    std::cout << "ball scale check: " << m->transform.scale.x << " ," << m->transform.scale.y << " ," << m->transform.scale.z << std::endl;
+    //std::cout << "ball scale check: " << m->transform.scale.x << " ," << m->transform.scale.y << " ," << m->transform.scale.z << std::endl;
     std::cout << "anchoredSpring 0 x: " << creator->anchoredSprings[0]->anchorPoint.x << std::endl;
     std::cout << "anchoredSpring 1 x: " << creator->anchoredSprings[1]->anchorPoint.x << std::endl;
     std::cout << "anchoredSpring 2 x: " << creator->anchoredSprings[2]->anchorPoint.x << std::endl;

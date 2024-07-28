@@ -26,7 +26,7 @@ void CableCreator::createCable() {
 
 	for (int i = 0; i < this->particles.size(); i++) {	
 		int x_offset = this->setXOffset(i);
-		AnchoredSpring* as = new AnchoredSpring(Vector3(x_offset, this->cableLength, 0), 10, this->cableLength * 0.8);
+		AnchoredSpring* as = new AnchoredSpring(Vector3(x_offset, this->cableLength, 0), 5, this->cableLength * 0.8);
 		this->anchoredSprings.push_back(as);
 	}	
 }
