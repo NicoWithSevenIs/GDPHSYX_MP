@@ -139,6 +139,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Project\Link\Cable.hpp" />
     <ClInclude Include="Project\ContactResolver.hpp" />
     <ClInclude Include="Project\Springs\ParticleSpring.hpp" />
     <ClInclude Include="Project\Springs\AnchoredSpring.hpp" />
@@ -177,6 +178,7 @@
     <None Include="Project\Model\Shaders\Temp.vert" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Project\Link\Cable.cpp" />
     <ClCompile Include="Project\ContactResolver.cpp" />
     <ClCompile Include="Project\Springs\ParticleSpring.cpp" />
     <ClCompile Include="Project\Springs\AnchoredSpring.cpp" />

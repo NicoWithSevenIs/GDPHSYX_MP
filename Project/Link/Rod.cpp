@@ -20,10 +20,6 @@ ParticleContact* Rod::getContact()
         ret->contactNormal = dir;
         ret->depth = currLen - length;
     }
-    else {
-        ret->contactNormal = -dir;
-        ret->depth = length - currLen;
-    }
 
     ret->restitution = restitution;
 

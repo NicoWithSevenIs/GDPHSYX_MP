@@ -44,6 +44,7 @@ class Particle {
 		void Destroy();
 		bool IsDestroyed();
 
+	public:
 		void AddForce(Vector3 force);
 		void ResetForce();
 

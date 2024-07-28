@@ -36,7 +36,7 @@
 
 #include "Project/Link/Rod.hpp"
 
-
+#include "Project/Link/Cable.hpp"
 
 using namespace managers;
 using namespace std::chrono_literals;
@@ -73,53 +73,60 @@ int main(void)
     CameraManager::initializeCameras(shader);
 
 
-
     World world = World();
 
     Model* m = new Model("3D/sphere.obj");
     m->assignShader(shader);
     m->transform.scale = Vector3::one * 30.f;
+    m->setColor(Vector3(0.6f, 0, 0));
 
     Particle *p = new Particle();
     p->lifeSpan = 100;
   
-
-    m->setColor(Vector3(0.6f,0,0));
-
     p->radius = 20;
+
     RenderParticle* p1 = new RenderParticle("p1", m, p);
-    p1->particle->mass = 5;
+    p1->particle->mass = 50;
 
     world.AddParticle(p1);
 
-  
-    Model* m2 = new Model(*m);
-    m2->setColor(Vector3(0, 0, 0.6f));
 
-    Particle* pp = new Particle(*p);
-    pp->position = (Vector3::up + Vector3::right) * 100;
-    pp->radius = 50;
-    
+
+
+    Model* m2 = new Model("3D/sphere.obj");
+    m2->assignShader(shader);
+    m2->transform.scale = Vector3::one * 30.f;
+    m2->setColor(Vector3(0, 0.6f, 0));
+
+    Particle* pp = new Particle();
+    pp->lifeSpan = 100;
+    pp->position = Vector3(0, 20.f, 0);
+
+    pp->radius = 20;
+
     RenderParticle* p2 = new RenderParticle("p2", m2, pp);
-    p2->particle->mass = 50;
+    p2->particle->mass = 500;
+    
 
-    world.AddParticle(p2);
+    //world.AddParticle(p2);
 
-    /*
 
-    ParticleSpring pSpring = ParticleSpring(pp, 5.f, 1.f);
-
-    world.forceRegistry.Add(p, &pSpring);
-
-    ParticleSpring pSpring2 = ParticleSpring(p, 5.f, 1.f);
-
-    world.forceRegistry.Add(pp, &pSpring2);
-
-    */
-
+    Cable* c = new Cable();
+    c->particles[0] = pp;
+    c->particles[1] = p;
+    c->cableLength = 200;
   
+
+    world.linkList.push_back(c);
+
+    //auto aSpring = Cable(Vector3::up * 50, p, 200);
+    //world.forceRegistry.Add(p, &aSpring);
+  
+    RenderLine line = RenderLine(pp->position, p->position, Vector3::one);
 
     //might try to make a time singleton to handle this
+
+    //p->AddForce(Vector3(200000,200000,0));
 
     constexpr std::chrono::nanoseconds timestep(16ms);
     using clock = std::chrono::high_resolution_clock;
@@ -170,16 +177,16 @@ int main(void)
 
             float dT = (float)ms.count() / 1000;
 
-            if (!isPaused){
-                world.Update(dT);
-                //contact.resolve(dT);
-            }
-                
+            if (!isPaused)
+                world.Update(dT);  
             
         } 
+
+        //std::cout << p->position << std::endl;
       
-
-
+        line.Update(pp->position, p->position, CameraManager::getMain()->worldProjection);
+       
+        line.Draw();
         world.Draw();
 
         CameraManager::DoOnAllCameras([x, y](Camera* camera) { camera->setRotation(Vector3(x, y, 0)); });

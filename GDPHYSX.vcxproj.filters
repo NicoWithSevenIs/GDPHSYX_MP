@@ -31,8 +31,7 @@
     <ClCompile Include="Project\Link\Rod.cpp" />
     <ClCompile Include="Project\ContactResolver.cpp" />
     <ClCompile Include="Project\Utilities\RenderLine.cpp" />
-    <ClCompile Include="Project\Link\BungeeLink.cpp" />
-    <ClCompile Include="Project\Link\ChainLink.cpp" />
+    <ClCompile Include="Project\Link\Cable.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="config.hpp" />
@@ -66,8 +65,7 @@
     <ClInclude Include="Project\Link\Rod.hpp" />
     <ClInclude Include="Project\ContactResolver.hpp" />
     <ClInclude Include="Project\Utilities\RenderLine.hpp" />
-    <ClInclude Include="Project\Link\BungeeLink.hpp" />
-    <ClInclude Include="Project\Link\ChainLink.hpp" />
+    <ClInclude Include="Project\Link\Cable.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include=".gitignore" />
