@@ -166,7 +166,7 @@ int main(void)
     bool hasStarted = false;
     input[GLFW_KEY_SPACE]+= { GLFW_PRESS, [&hasStarted, &creator]() 
         { 
-            if (hasStarted) return;
+            //if (hasStarted) return;
 
             creator->leftMost->AddForce(creator->forceToApply);
             hasStarted = true; 

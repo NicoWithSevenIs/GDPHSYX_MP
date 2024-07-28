@@ -23,6 +23,7 @@ ParticleContact* Cable::getContact()
         ret->contactNormal = dir;
         ret->depth = currLen - cableLength;   
     }
+  
     ret->restitution = restitution;
 
     return ret;
