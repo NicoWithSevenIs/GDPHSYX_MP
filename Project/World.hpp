@@ -9,6 +9,7 @@
 #include "Link/ParticleLink.hpp"
 #include "ParticleContact.hpp"
 #include "ContactResolver.hpp"
+#include "Utilities/RenderLine.hpp"
 
 class World {
 	
@@ -22,6 +23,7 @@ class World {
 		std::list<ParticleLink*> linkList;
 		std::vector<RenderParticle*> rankings;
 		std::vector<ParticleContact*> contactList;
+		std::vector<RenderLine*> renderLines;
 
 	public:
 	

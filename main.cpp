@@ -42,7 +42,10 @@ using namespace managers;
 using namespace std::chrono_literals;
 
 void setCableCreatorParticles(Model* m, World* world, CableCreator* creator) {
-    m->transform.scale = Vector3::one * creator->particleRadius;
+    m->transform.scale.x = creator->particleRadius;
+    m->transform.scale.y = creator->particleRadius;
+    m->transform.scale.z = creator->particleRadius;
+
     RenderParticle* p1 = new RenderParticle("p1", m, creator->particles[0]);
     world->AddParticle(p1);
 
@@ -64,11 +67,18 @@ void setCableCreatorParticles(Model* m, World* world, CableCreator* creator) {
     world->forceRegistry.Add(creator->particles[3], creator->anchoredSprings[3]);
     world->forceRegistry.Add(creator->particles[4], creator->anchoredSprings[4]);
 
+    std::cout << "ball scale check: " << m->transform.scale.x << " ," << m->transform.scale.y << " ," << m->transform.scale.z << std::endl;
     std::cout << "anchoredSpring 0 x: " << creator->anchoredSprings[0]->anchorPoint.x << std::endl;
     std::cout << "anchoredSpring 1 x: " << creator->anchoredSprings[1]->anchorPoint.x << std::endl;
     std::cout << "anchoredSpring 2 x: " << creator->anchoredSprings[2]->anchorPoint.x << std::endl;
     std::cout << "anchoredSpring 3 x: " << creator->anchoredSprings[3]->anchorPoint.x << std::endl;
     std::cout << "anchoredSpring 4 x: " << creator->anchoredSprings[4]->anchorPoint.x << std::endl;
+
+    std::cout << "anchoredSpring 0 y: " << creator->anchoredSprings[0]->anchorPoint.y << std::endl;
+    std::cout << "anchoredSpring 1 y: " << creator->anchoredSprings[1]->anchorPoint.y << std::endl;
+    std::cout << "anchoredSpring 2 y: " << creator->anchoredSprings[2]->anchorPoint.y << std::endl;
+    std::cout << "anchoredSpring 3 y: " << creator->anchoredSprings[3]->anchorPoint.y << std::endl;
+    std::cout << "anchoredSpring 4 y: " << creator->anchoredSprings[4]->anchorPoint.y << std::endl;
 }
 
 int main(void)

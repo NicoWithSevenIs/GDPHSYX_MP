@@ -18,6 +18,7 @@ void CableCreator::createCable() {
 		particle->restitution = 0.9f;
 		particle->mass = 50.0f;
 		particle->lifeSpan = 1000.0f;
+		particle->radius = this->particleRadius;
 		int x_offset = this->setXOffset(i);
 		particle->setPosition(Vector3(x_offset, 0, 0));
 		this->particles.push_back(particle);
@@ -25,7 +26,7 @@ void CableCreator::createCable() {
 
 	for (int i = 0; i < this->particles.size(); i++) {	
 		int x_offset = this->setXOffset(i);
-		AnchoredSpring* as = new AnchoredSpring(Vector3(x_offset, this->cableLength, 0), 3, this->cableLength - 50.0f);
+		AnchoredSpring* as = new AnchoredSpring(Vector3(x_offset, this->cableLength, 0), 10, this->cableLength * 0.8);
 		this->anchoredSprings.push_back(as);
 	}	
 }

@@ -7,6 +7,10 @@ void RenderLine::Update(Vector3 p1, Vector3 p2, glm::mat4 projection_matrix)
 	this->projection_matrix = projection_matrix;
 }
 
+void RenderLine::Update(glm::mat4 projection_matrix) {
+	this->projection_matrix = projection_matrix;
+}
+
 void RenderLine::Draw()
 {
 
