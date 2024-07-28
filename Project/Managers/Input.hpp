@@ -54,7 +54,6 @@ class Input
 		
 		static void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods);
 		static void mouseCallback(GLFWwindow* window, double xPos, double yPos);
-		void askCableInput(CableCreator* cableCreator);
 
 	#pragma region Singleton
 	private:
@@ -69,7 +68,15 @@ class Input
 		static Input* getInstance();
 
 		template <typename T>
-		static T getLine(std::string message = "Input");
+		static T getLine(std::string message = "Input") {
+
+			T value;
+
+			std::cout << message << ": ";
+			std::cin >> value;
+
+			return value;
+		}
 
 	#pragma endregion
 

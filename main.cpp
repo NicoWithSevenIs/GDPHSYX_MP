@@ -42,48 +42,41 @@
 using namespace managers;
 using namespace std::chrono_literals;
 
-void setCableCreatorParticles(Model* m, World* world, CableCreator* creator) {
-    m->transform.scale.x = creator->particleRadius;
-    m->transform.scale.y = creator->particleRadius;
-    m->transform.scale.z = creator->particleRadius;
 
-    RenderParticle* p1 = new RenderParticle("p1", m, creator->particles[0]);
-    world->AddParticle(p1);
 
-    RenderParticle* p2 = new RenderParticle("p2", m, creator->particles[1]);
-    world->AddParticle(p2);
-
-    RenderParticle* p3 = new RenderParticle("p3", m, creator->particles[2]);
-    world->AddParticle(p3);
-
-    RenderParticle* p4 = new RenderParticle("p4", m, creator->particles[3]);
-    world->AddParticle(p4);
-
-    RenderParticle* p5 = new RenderParticle("p5", m, creator->particles[4]);
-    world->AddParticle(p5);
-     
-    world->forceRegistry.Add(creator->particles[0], creator->anchoredSprings[0]);
-    world->forceRegistry.Add(creator->particles[1], creator->anchoredSprings[1]);
-    world->forceRegistry.Add(creator->particles[2], creator->anchoredSprings[2]);
-    world->forceRegistry.Add(creator->particles[3], creator->anchoredSprings[3]);
-    world->forceRegistry.Add(creator->particles[4], creator->anchoredSprings[4]);
-
-    //std::cout << "ball scale check: " << m->transform.scale.x << " ," << m->transform.scale.y << " ," << m->transform.scale.z << std::endl;
-    std::cout << "anchoredSpring 0 x: " << creator->anchoredSprings[0]->anchorPoint.x << std::endl;
-    std::cout << "anchoredSpring 1 x: " << creator->anchoredSprings[1]->anchorPoint.x << std::endl;
-    std::cout << "anchoredSpring 2 x: " << creator->anchoredSprings[2]->anchorPoint.x << std::endl;
-    std::cout << "anchoredSpring 3 x: " << creator->anchoredSprings[3]->anchorPoint.x << std::endl;
-    std::cout << "anchoredSpring 4 x: " << creator->anchoredSprings[4]->anchorPoint.x << std::endl;
-
-    std::cout << "anchoredSpring 0 y: " << creator->anchoredSprings[0]->anchorPoint.y << std::endl;
-    std::cout << "anchoredSpring 1 y: " << creator->anchoredSprings[1]->anchorPoint.y << std::endl;
-    std::cout << "anchoredSpring 2 y: " << creator->anchoredSprings[2]->anchorPoint.y << std::endl;
-    std::cout << "anchoredSpring 3 y: " << creator->anchoredSprings[3]->anchorPoint.y << std::endl;
-    std::cout << "anchoredSpring 4 y: " << creator->anchoredSprings[4]->anchorPoint.y << std::endl;
-}
 
 int main(void)
 {   
+
+          
+    Input& input = *Input::getInstance();
+    Vector3 pushForce;
+
+    auto cableLength = 200;
+    auto particleGap = 100;
+    auto particleRadius = 50;
+    auto gravityStrength = 9.81f;
+
+
+    /*
+     auto cableLength = input.getLine<float>("Cable Length");
+    auto particleGap = input.getLine<float>("Particle Gap");
+    auto particleRadius = input.getLine<float>("Particle Radius");
+    auto gravityStrength = input.getLine<float>("Gravity Strength");
+
+    
+  
+    std::cout << "Apply Force" << std::endl;
+    pushForce.x = input.getLine<float>("x");
+    pushForce.y = input.getLine<float>("y");
+    pushForce.z = input.getLine<float>("z");
+      */
+
+    CableCreator* creator = new CableCreator(cableLength, particleGap, particleRadius, pushForce);
+
+    CableSet cableset = creator->createCables();
+    //setCableCreatorParticles(m, &world, creator);
+
 
     GLFWwindow* window;
     srand(time(0));
@@ -91,7 +84,7 @@ int main(void)
     if (!glfwInit())
         return -1;
 
-    window = glfwCreateWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Quiz John Enrico Tolentino", NULL, NULL);
+    window = glfwCreateWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Phase 2 - Lance Ong, Nico Tolentino", NULL, NULL);
     if (!window)
     {
         glfwTerminate();
@@ -113,64 +106,42 @@ int main(void)
 
 
     World world = World();
+    world.gravity.Gravity = Vector3::down * gravityStrength;
 
-    Model* m = new Model("3D/sphere.obj");
-    m->assignShader(shader);
-    m->transform.scale = Vector3::one * 30.f;
-    m->setColor(Vector3(0.6f, 0, 0));
+    std::vector<Model*> models;
+    for (int i = 0; i < cableset.particles.size(); i++) {
+        Model* m = new Model("3D/sphere.obj");
+        m->assignShader(shader);
+        m->setColor(Vector3(0.6f, 0, 0));
 
-    Particle *p = new Particle();
-    p->lifeSpan = 100;
-    p->mass = 500;
-    p->radius = 20;
+        models.push_back(m);
+    }
 
-    RenderParticle* p1 = new RenderParticle("p1", m, p);
-    p1->particle->mass = 50;
+    RenderParticle* rp = new RenderParticle("rp", models[0], new Particle());
+    world.AddParticle(rp);
+   /*
 
-    //m->setColor(Vector3(0.0f, 1, 0));
+    for (int i = 0; i < cableset.particles.size(); i++) {
+        RenderParticle* rp = new RenderParticle("rp" + std::to_string(i), models[i], cableset.particles);
+        world.AddParticle(rp);
+    }
 
+    for (int i = 0; i < cableset.cables.size(); i++) {
+        //world.linkList.push_back(cableset.cables[i]);
+    }
+    */
 
+    std::vector<RenderLine> lines;
 
-
-    Model* m2 = new Model("3D/sphere.obj");
-    m2->assignShader(shader);
-    m2->transform.scale = Vector3::one * 30.f;
-    m2->setColor(Vector3(0, 0.6f, 0));
-
-    Particle* pp = new Particle();
-    pp->lifeSpan = 100;
-    pp->position = Vector3(0, 20.f, 0);
-
-    pp->radius = 20;
-
-    RenderParticle* p2 = new RenderParticle("p2", m2, pp);
-    p2->particle->mass = 50;
-    
-
-    //world.AddParticle(p2);
-
-    Vector3 anchorPosition = Vector3::up * 50;
-    Cable* c = new Cable(anchorPosition, p, 200);
-
-
-    world.linkList.push_back(c);
-
-    //auto aSpring = Cable(Vector3::up * 50, p, 200);
-    //world.forceRegistry.Add(p, &aSpring);
+    for (auto c : cableset.cables) {
+        RenderLine line = RenderLine(c->particles[0]->position, c->particles[1]->position, Vector3::one);
+        lines.push_back(line);
+    }
   
-    RenderLine line = RenderLine(anchorPosition, p->position, Vector3::one);
 
-    //pp->radius = 20;
-    //RenderParticle* rp = new RenderParticle("p1", m, pp);
-    //rp->particle->mass = 5;
 
-    //world.AddParticle(rp);
 
-    CableCreator* creator = new CableCreator();
     
-    //might try to make a time singleton to handle this
-
-    //p->AddForce(Vector3(200000,200000,0));
 
     constexpr std::chrono::nanoseconds timestep(16ms);
     using clock = std::chrono::high_resolution_clock;
@@ -183,15 +154,7 @@ int main(void)
     #pragma region inputs
 
     bool isPaused = false;
-    Input& input = *Input::getInstance();
-    input.askCableInput(creator);
-    creator->testPrint();
-
-    creator->createCable();
-    setCableCreatorParticles(m, &world, creator);
-
-
-    input[GLFW_KEY_SPACE] += { GLFW_PRESS, [&isPaused]() {isPaused = !isPaused;} };
+    input[GLFW_KEY_ENTER] += { GLFW_PRESS, [&isPaused]() {isPaused = !isPaused;} };
     input[GLFW_KEY_1] += { GLFW_PRESS, []() { CameraManager::switchToOrtho(); }};
     input[GLFW_KEY_2] += { GLFW_PRESS, []() { CameraManager::switchToPerspective(); }};
 
@@ -207,7 +170,16 @@ int main(void)
     input[GLFW_KEY_A] += { GLFW_REPEAT, [&y, step]() { y -= step; }};
     input[GLFW_KEY_BACKSPACE] += {GLFW_PRESS, [&x, &y] {x = 0; y=0;}};
 
-    input[GLFW_KEY_ENTER]+= { GLFW_PRESS, [p]() { p->AddForce(Vector3(1000000,100000, 0)); } };
+
+    bool hasStarted = false;
+    input[GLFW_KEY_SPACE]+= { GLFW_PRESS, [&hasStarted, &creator]() 
+        { 
+            if (hasStarted) return;
+
+            creator->leftMost->AddForce(Vector3(1000000, 100000, 0));
+            hasStarted = true; 
+        }
+    };
 
     glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
@@ -234,11 +206,18 @@ int main(void)
             
         } 
 
-        //std::cout << p->position << std::endl;
-      
-        line.Update(anchorPosition, p->position, CameraManager::getMain()->worldProjection);
+        /*
+        for (int i = 0; i < lines.size(); i++) {
+
+            Vector3 p1 = cableset.particles[0]->position;
+            Vector3 p2 = cableset.particles[1]->position;
+
+            lines[i].Update(p1 ,p2, CameraManager::getMain()->worldProjection);
+            lines[i].Draw();
+        }
+  */
        
-        line.Draw();
+
         world.Draw();
 
         CameraManager::DoOnAllCameras([x, y](Camera* camera) { camera->setRotation(Vector3(x, y, 0)); });

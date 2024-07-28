@@ -5,7 +5,7 @@
 class GravityForceGenerator: public ForceGenerator
 {
 
-	private:
+	public:
 		Vector3 Gravity = Vector3(0, -9.81f, 0);
 
 	public:

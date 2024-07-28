@@ -1,34 +1,28 @@
 #include "CableCreator.hpp"
 
-void CableCreator::testPrint() {
-	std::cout << "[TEST PRINT - CABLE CREATOR]" << std::endl;
-	std::cout << "Cable Length: " << this->cableLength << std::endl;
-	std::cout << "Particle Gap: " << this->particleGap << std::endl;
-	std::cout << "Particle Radius: " << this->particleRadius << std::endl;
-	std::cout << "Gravity Strength: " << this->gravityStrength << std::endl;
-	std::cout << "Force to apply x: " << this->forceToApply.x << std::endl;
-	std::cout << "Force to apply y: " << this->forceToApply.y << std::endl;
-	std::cout << "Force to apply z: " << this->forceToApply.z << std::endl;
+CableSet CableCreator::createCables() {
 
-}
 
-void CableCreator::createCable() {
+	CableSet cableSet; 
+
 	for (int i = 0; i < 5; i++) {
+
 		Particle* particle = new Particle();
-		particle->restitution = 0.9f;
 		particle->mass = 50.0f;
-		particle->lifeSpan = 1000.0f;
+		particle->lifeSpan = 10000.0f;
 		particle->radius = this->particleRadius;
+
 		int x_offset = this->setXOffset(i);
 		particle->setPosition(Vector3(x_offset, 0, 0));
-		this->particles.push_back(particle);
+
+		Cable* cable = new Cable(particle->position + Vector3::up * 50, particle, cableLength);
+
+		cableSet.cables.push_back(cable);
+		cableSet.particles.push_back(particle);
 	}
 
-	for (int i = 0; i < this->particles.size(); i++) {	
-		int x_offset = this->setXOffset(i);
-		AnchoredSpring* as = new AnchoredSpring(Vector3(x_offset, this->cableLength, 0), 5, this->cableLength * 0.8);
-		this->anchoredSprings.push_back(as);
-	}	
+	leftMost = cableSet.particles[3];
+	return cableSet;
 }
 
 int CableCreator::setXOffset(int i) {
@@ -38,16 +32,16 @@ int CableCreator::setXOffset(int i) {
 			x_offset = 0;
 			break;
 		case 1:
-			x_offset = 0 - ((this->particleRadius * 2) + this->particleGap);
+			x_offset = 0 - ((this->particleRadius) + this->particleGap);
 			break;
 		case 2:
-			x_offset = 0 + ((this->particleRadius * 2) + this->particleGap);
+			x_offset = 0 + ((this->particleRadius) + this->particleGap);
 			break;
 		case 3:
-			x_offset = 0 - ((this->particleRadius * 3) +  (this->particleGap * 2));
+			x_offset = 0 - ((this->particleRadius * 2) +  (this->particleGap * 2));
 			break;
 		case 4:
-			x_offset = 0 + ((this->particleRadius * 3) + (this->particleGap * 2));
+			x_offset = 0 + ((this->particleRadius * 2) + (this->particleGap * 2));
 			break;
 	}
 	return x_offset;

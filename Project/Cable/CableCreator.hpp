@@ -1,26 +1,39 @@
 #pragma once
 
 #include "../Springs/ParticleSpring.hpp"
-#include "../Springs/AnchoredSpring.hpp"
+#include "../Link/Cable.hpp"
 #include "../Particle.hpp"
 #include "vector"
 #include "unordered_map"
 
+struct CableSet {
+	std::vector<Particle*> particles;
+	std::vector<Cable*> cables;
+};
+
+
 class CableCreator {
-public:
-	float cableLength = 0;
-	float particleGap = 0;
-	float particleRadius = 0;
-	float gravityStrength = 0;
-	Vector3 forceToApply = Vector3();
+
+private:
+	float cableLength;
+	float particleGap;
+	float particleRadius;
+
+
+	
+	Vector3 forceToApply;
 
 public:
-	std::vector<AnchoredSpring*> anchoredSprings;
-	std::vector<Particle*> particles;
-	
+
+	Particle* leftMost = nullptr;
+
+	inline CableCreator(float cableLength, float particleGap, float particleRadius, Vector3 forceToApply):
+	cableLength(cableLength), particleGap(particleGap), forceToApply(forceToApply){}
+
+
+
 public:
-	void testPrint();
-	void createCable();
+	CableSet createCables();
 
 	int setXOffset(int i);
 
