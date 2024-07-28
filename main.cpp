@@ -82,7 +82,7 @@ int main(void)
 
     Particle *p = new Particle();
     p->lifeSpan = 100;
-  
+    p->mass = 500;
     p->radius = 20;
 
     RenderParticle* p1 = new RenderParticle("p1", m, p);
@@ -105,24 +105,21 @@ int main(void)
     pp->radius = 20;
 
     RenderParticle* p2 = new RenderParticle("p2", m2, pp);
-    p2->particle->mass = 500;
+    p2->particle->mass = 50;
     
 
     //world.AddParticle(p2);
 
+    Vector3 anchorPosition = Vector3::up * 50;
+    Cable* c = new Cable(anchorPosition, p, 200);
 
-    Cable* c = new Cable();
-    c->particles[0] = pp;
-    c->particles[1] = p;
-    c->cableLength = 200;
-  
 
     world.linkList.push_back(c);
 
     //auto aSpring = Cable(Vector3::up * 50, p, 200);
     //world.forceRegistry.Add(p, &aSpring);
   
-    RenderLine line = RenderLine(pp->position, p->position, Vector3::one);
+    RenderLine line = RenderLine(anchorPosition, p->position, Vector3::one);
 
     //might try to make a time singleton to handle this
 
@@ -157,6 +154,8 @@ int main(void)
     input[GLFW_KEY_A] += { GLFW_REPEAT, [&y, step]() { y -= step; }};
     input[GLFW_KEY_BACKSPACE] += {GLFW_PRESS, [&x, &y] {x = 0; y=0;}};
 
+    input[GLFW_KEY_ENTER]+= { GLFW_PRESS, [p]() { p->AddForce(Vector3(1000000,100000, 0)); } };
+
     glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
     #pragma endregion
@@ -184,7 +183,7 @@ int main(void)
 
         //std::cout << p->position << std::endl;
       
-        line.Update(pp->position, p->position, CameraManager::getMain()->worldProjection);
+        line.Update(anchorPosition, p->position, CameraManager::getMain()->worldProjection);
        
         line.Draw();
         world.Draw();

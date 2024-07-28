@@ -5,6 +5,8 @@ void World::Update(float deltaTime) {
 	//this->UpdateParticleList();
 	forceRegistry.UpdateForces(deltaTime);
 
+
+
 	for (auto p : particleList) {
 		
 		p->particle->Update(deltaTime);

@@ -16,14 +16,12 @@ ParticleContact* Cable::getContact()
     dir.Normalize();
 
     particles[0]->velocity = Vector3::zero;
+    particles[0]->position = anchorPosition;
 
     if (currLen > cableLength) {
         ret->contactNormal = dir;
-        ret->depth = currLen - cableLength;
-        std::cout << "Magnitude: " << particles[1]->accumulatedForce.Magnitude() << std::endl;
-        particles[1]->AddForce(dir * particles[1]->accumulatedForce.Magnitude());
+        ret->depth = currLen - cableLength;   
     }
-
     ret->restitution = restitution;
 
     return ret;
