@@ -18,6 +18,7 @@ ParticleContact* Cable::getContact()
     particles[0]->velocity = Vector3::zero;
     particles[0]->position = anchorPosition;
 
+
     if (currLen > cableLength) {
         ret->contactNormal = dir;
         ret->depth = currLen - cableLength;   

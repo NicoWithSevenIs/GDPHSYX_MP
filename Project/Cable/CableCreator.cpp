@@ -6,19 +6,23 @@ CableSet CableCreator::createCables() {
 	CableSet cableSet; 
 
 	for (int i = 0; i < 5; i++) {
-
+		
 		Particle* particle = new Particle();
-		particle->mass = 50.0f;
-		particle->lifeSpan = 10000.0f;
+		particle->mass = 5.0f;
+		particle->lifeSpan = 100.0f;
 		particle->radius = this->particleRadius;
-
+		
 		int x_offset = this->setXOffset(i);
 		particle->setPosition(Vector3(x_offset, 0, 0));
 
+		
+
 		Cable* cable = new Cable(particle->position + Vector3::up * 50, particle, cableLength);
+		std::cout << particle->position + Vector3::down * 50 << std::endl;
 
 		cableSet.cables.push_back(cable);
 		cableSet.particles.push_back(particle);
+
 	}
 
 	leftMost = cableSet.particles[3];

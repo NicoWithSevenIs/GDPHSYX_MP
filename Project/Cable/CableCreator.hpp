@@ -20,7 +20,7 @@ private:
 	float particleRadius;
 
 
-	
+public:
 	Vector3 forceToApply;
 
 public:
@@ -28,7 +28,7 @@ public:
 	Particle* leftMost = nullptr;
 
 	inline CableCreator(float cableLength, float particleGap, float particleRadius, Vector3 forceToApply):
-	cableLength(cableLength), particleGap(particleGap), forceToApply(forceToApply){}
+	cableLength(cableLength), particleGap(particleGap), particleRadius(particleRadius), forceToApply(forceToApply){}
 
 
 

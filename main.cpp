@@ -52,14 +52,10 @@ int main(void)
     Input& input = *Input::getInstance();
     Vector3 pushForce;
 
-    auto cableLength = 200;
-    auto particleGap = 100;
-    auto particleRadius = 50;
-    auto gravityStrength = 9.81f;
 
 
-    /*
-     auto cableLength = input.getLine<float>("Cable Length");
+  
+    auto cableLength = input.getLine<float>("Cable Length");
     auto particleGap = input.getLine<float>("Particle Gap");
     auto particleRadius = input.getLine<float>("Particle Radius");
     auto gravityStrength = input.getLine<float>("Gravity Strength");
@@ -70,7 +66,7 @@ int main(void)
     pushForce.x = input.getLine<float>("x");
     pushForce.y = input.getLine<float>("y");
     pushForce.z = input.getLine<float>("z");
-      */
+      
 
     CableCreator* creator = new CableCreator(cableLength, particleGap, particleRadius, pushForce);
 
@@ -111,37 +107,33 @@ int main(void)
     std::vector<Model*> models;
     for (int i = 0; i < cableset.particles.size(); i++) {
         Model* m = new Model("3D/sphere.obj");
+        m->transform.scale = Vector3::one * 30.f;
         m->assignShader(shader);
         m->setColor(Vector3(0.6f, 0, 0));
 
         models.push_back(m);
     }
 
-    RenderParticle* rp = new RenderParticle("rp", models[0], new Particle());
-    world.AddParticle(rp);
-   /*
+
+  
 
     for (int i = 0; i < cableset.particles.size(); i++) {
-        RenderParticle* rp = new RenderParticle("rp" + std::to_string(i), models[i], cableset.particles);
+        RenderParticle* rp = new RenderParticle("rp" + std::to_string(i), models[i], cableset.particles[i]);
         world.AddParticle(rp);
     }
 
     for (int i = 0; i < cableset.cables.size(); i++) {
-        //world.linkList.push_back(cableset.cables[i]);
+        world.linkList.push_back(cableset.cables[i]);
     }
-    */
+ 
 
     std::vector<RenderLine> lines;
 
-    for (auto c : cableset.cables) {
+    for (Cable* c : cableset.cables) {
         RenderLine line = RenderLine(c->particles[0]->position, c->particles[1]->position, Vector3::one);
         lines.push_back(line);
     }
   
-
-
-
-    
 
     constexpr std::chrono::nanoseconds timestep(16ms);
     using clock = std::chrono::high_resolution_clock;
@@ -176,7 +168,7 @@ int main(void)
         { 
             if (hasStarted) return;
 
-            creator->leftMost->AddForce(Vector3(1000000, 100000, 0));
+            creator->leftMost->AddForce(creator->forceToApply);
             hasStarted = true; 
         }
     };
@@ -206,16 +198,16 @@ int main(void)
             
         } 
 
-        /*
+        
         for (int i = 0; i < lines.size(); i++) {
 
-            Vector3 p1 = cableset.particles[0]->position;
-            Vector3 p2 = cableset.particles[1]->position;
+            Vector3 p1 = cableset.cables[i]->particles[0]->position;
+            Vector3 p2 = cableset.cables[i]->particles[1]->position;
 
             lines[i].Update(p1 ,p2, CameraManager::getMain()->worldProjection);
             lines[i].Draw();
         }
-  */
+ 
        
 
         world.Draw();
