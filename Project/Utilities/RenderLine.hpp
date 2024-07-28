@@ -20,6 +20,7 @@ class RenderLine
 		RenderLine(Vector3 p1, Vector3 p2, Vector3 color): p1(p1), p2(p2), color(color){}
 
 		void Update(Vector3 p1, Vector3 p2, glm::mat4 projection_matrix);
+		void Update(glm::mat4 projection_matrix);
 		void Draw();
 };
 

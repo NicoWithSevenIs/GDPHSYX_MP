@@ -37,11 +37,50 @@
 #include "Project/Link/Rod.hpp"
 
 #include "Project/Link/Cable.hpp"
+#include "Project/Cable/CableCreator.hpp"
 
 using namespace managers;
 using namespace std::chrono_literals;
 
+void setCableCreatorParticles(Model* m, World* world, CableCreator* creator) {
+    m->transform.scale.x = creator->particleRadius;
+    m->transform.scale.y = creator->particleRadius;
+    m->transform.scale.z = creator->particleRadius;
 
+    RenderParticle* p1 = new RenderParticle("p1", m, creator->particles[0]);
+    world->AddParticle(p1);
+
+    RenderParticle* p2 = new RenderParticle("p2", m, creator->particles[1]);
+    world->AddParticle(p2);
+
+    RenderParticle* p3 = new RenderParticle("p3", m, creator->particles[2]);
+    world->AddParticle(p3);
+
+    RenderParticle* p4 = new RenderParticle("p4", m, creator->particles[3]);
+    world->AddParticle(p4);
+
+    RenderParticle* p5 = new RenderParticle("p5", m, creator->particles[4]);
+    world->AddParticle(p5);
+     
+    world->forceRegistry.Add(creator->particles[0], creator->anchoredSprings[0]);
+    world->forceRegistry.Add(creator->particles[1], creator->anchoredSprings[1]);
+    world->forceRegistry.Add(creator->particles[2], creator->anchoredSprings[2]);
+    world->forceRegistry.Add(creator->particles[3], creator->anchoredSprings[3]);
+    world->forceRegistry.Add(creator->particles[4], creator->anchoredSprings[4]);
+
+    //std::cout << "ball scale check: " << m->transform.scale.x << " ," << m->transform.scale.y << " ," << m->transform.scale.z << std::endl;
+    std::cout << "anchoredSpring 0 x: " << creator->anchoredSprings[0]->anchorPoint.x << std::endl;
+    std::cout << "anchoredSpring 1 x: " << creator->anchoredSprings[1]->anchorPoint.x << std::endl;
+    std::cout << "anchoredSpring 2 x: " << creator->anchoredSprings[2]->anchorPoint.x << std::endl;
+    std::cout << "anchoredSpring 3 x: " << creator->anchoredSprings[3]->anchorPoint.x << std::endl;
+    std::cout << "anchoredSpring 4 x: " << creator->anchoredSprings[4]->anchorPoint.x << std::endl;
+
+    std::cout << "anchoredSpring 0 y: " << creator->anchoredSprings[0]->anchorPoint.y << std::endl;
+    std::cout << "anchoredSpring 1 y: " << creator->anchoredSprings[1]->anchorPoint.y << std::endl;
+    std::cout << "anchoredSpring 2 y: " << creator->anchoredSprings[2]->anchorPoint.y << std::endl;
+    std::cout << "anchoredSpring 3 y: " << creator->anchoredSprings[3]->anchorPoint.y << std::endl;
+    std::cout << "anchoredSpring 4 y: " << creator->anchoredSprings[4]->anchorPoint.y << std::endl;
+}
 
 int main(void)
 {   
@@ -88,7 +127,7 @@ int main(void)
     RenderParticle* p1 = new RenderParticle("p1", m, p);
     p1->particle->mass = 50;
 
-    world.AddParticle(p1);
+    //m->setColor(Vector3(0.0f, 1, 0));
 
 
 
@@ -121,6 +160,14 @@ int main(void)
   
     RenderLine line = RenderLine(anchorPosition, p->position, Vector3::one);
 
+    //pp->radius = 20;
+    //RenderParticle* rp = new RenderParticle("p1", m, pp);
+    //rp->particle->mass = 5;
+
+    //world.AddParticle(rp);
+
+    CableCreator* creator = new CableCreator();
+    
     //might try to make a time singleton to handle this
 
     //p->AddForce(Vector3(200000,200000,0));
@@ -137,6 +184,12 @@ int main(void)
 
     bool isPaused = false;
     Input& input = *Input::getInstance();
+    input.askCableInput(creator);
+    creator->testPrint();
+
+    creator->createCable();
+    setCableCreatorParticles(m, &world, creator);
+
 
     input[GLFW_KEY_SPACE] += { GLFW_PRESS, [&isPaused]() {isPaused = !isPaused;} };
     input[GLFW_KEY_1] += { GLFW_PRESS, []() { CameraManager::switchToOrtho(); }};

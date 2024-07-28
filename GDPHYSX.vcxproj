@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -140,6 +140,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Project\Link\Cable.hpp" />
+    <ClInclude Include="Project\Cable\CableCreator.hpp" />
     <ClInclude Include="Project\ContactResolver.hpp" />
     <ClInclude Include="Project\Springs\ParticleSpring.hpp" />
     <ClInclude Include="Project\Springs\AnchoredSpring.hpp" />
@@ -179,6 +180,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Project\Link\Cable.cpp" />
+    <ClCompile Include="Project\Cable\CableCreator.cpp" />
     <ClCompile Include="Project\ContactResolver.cpp" />
     <ClCompile Include="Project\Springs\ParticleSpring.cpp" />
     <ClCompile Include="Project\Springs\AnchoredSpring.cpp" />

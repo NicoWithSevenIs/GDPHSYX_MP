@@ -10,6 +10,8 @@
 #include <string>
 #include <sstream>
 
+#include "../Cable/CableCreator.hpp"
+
 struct Key_Event {
 	int invoke_type;
 	std::function<void()> function;
@@ -52,7 +54,8 @@ class Input
 		
 		static void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods);
 		static void mouseCallback(GLFWwindow* window, double xPos, double yPos);
-		
+		void askCableInput(CableCreator* cableCreator);
+
 	#pragma region Singleton
 	private:
 		static Input* instance;

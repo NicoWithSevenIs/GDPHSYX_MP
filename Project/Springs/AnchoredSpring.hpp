@@ -5,7 +5,7 @@
 class AnchoredSpring: public ForceGenerator
 {
 
-	private:
+	public:
 		Vector3 anchorPoint;
 		float springConstant;
 		float restLength;
