@@ -15,8 +15,6 @@ class Cable: public ParticleLink
 
 		Vector3 anchorPosition;
 
-		bool isStiff = false;
-
 		inline Cable(Vector3 anchorPosition, Particle* p, float cableLength): anchorPosition(anchorPosition), cableLength(cableLength){
 			particles[0] = new Particle(); 
 			particles[0]->position = anchorPosition;
